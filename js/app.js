@@ -6,51 +6,66 @@
 const WHATSAPP_NUMERO = '51933484150';
 const ENVIO_SHALOM = 5;
 
-// Catálogo de productos (hombre, mujer, niños - rutas modelo1)
+// Catálogo dinámico: categoría > modelo > datos del producto
+// Para agregar más modelos: solo añadir modelo2, modelo3, etc.
 const CATALOGO = {
   hombre: {
-    nombre: 'Zapatilla Cat para hombre',
-    precio: 180,
-    tallas: [38, 39, 40, 41, 42],
-    imagenes: [
-      'imagenes/hombres/modelo1/zapatilla_Cat1.jpeg',
-      'imagenes/hombres/modelo1/zapatilla_Cat2.jpeg',
-      'imagenes/hombres/modelo1/zapatilla_Cat3.jpeg',
-      'imagenes/hombres/modelo1/zapatilla_Cat4.jpeg',
-      'imagenes/hombres/modelo1/zapatilla_Cat5.jpeg'
-    ]
+    modelo1: {
+      nombre: 'Zapatilla Cat para hombre',
+      precio: 180,
+      tallas: [38, 39, 40, 41, 42],
+      imagenes: [
+        'imagenes/hombres/modelo1/zapatilla_Cat1.jpeg',
+        'imagenes/hombres/modelo1/zapatilla_Cat2.jpeg',
+        'imagenes/hombres/modelo1/zapatilla_Cat3.jpeg',
+        'imagenes/hombres/modelo1/zapatilla_Cat4.jpeg',
+        'imagenes/hombres/modelo1/zapatilla_Cat5.jpeg'
+      ]
+    }
   },
   mujer: {
-    nombre: 'Zapatilla Nike para mujer',
-    precio: 75,
-    tallas: [38, 39, 40, 41, 42],
-    imagenes: [
-      'imagenes/mujeres/modelo1/ZapatillaNikeMujer1.jpeg',
-      'imagenes/mujeres/modelo1/ZapatillaNikeMujer2.jpeg',
-      'imagenes/mujeres/modelo1/ZapatillaNikeMujer3.jpeg',
-      'imagenes/mujeres/modelo1/ZapatillaNikeMujer4.jpeg',
-      'imagenes/mujeres/modelo1/ZapatillaNikeMujer5.jpeg'
-    ]
+    modelo1: {
+      nombre: 'Zapatilla Nike para mujer',
+      precio: 75,
+      tallas: [38, 39, 40, 41, 42],
+      imagenes: [
+        'imagenes/mujeres/modelo1/ZapatillaNikeMujer1.jpeg',
+        'imagenes/mujeres/modelo1/ZapatillaNikeMujer2.jpeg',
+        'imagenes/mujeres/modelo1/ZapatillaNikeMujer3.jpeg',
+        'imagenes/mujeres/modelo1/ZapatillaNikeMujer4.jpeg',
+        'imagenes/mujeres/modelo1/ZapatillaNikeMujer5.jpeg'
+      ]
+    }
   },
   ninos: {
-    nombre: 'Zapatilla Jordans para niños',
-    precio: 70,
-    tallas: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
-    imagenes: [
-      'imagenes/niños/modelo1/ZapatillaNiños1.jpeg',
-      'imagenes/niños/modelo1/ZapatillaNiños2.jpeg',
-      'imagenes/niños/modelo1/ZapatillaNiños3.jpeg',
-      'imagenes/niños/modelo1/ZapatillaNiños4.jpeg',
-      'imagenes/niños/modelo1/ZapatillaNiños5.jpeg',
-      'imagenes/niños/modelo1/ZapatillaNiños6.jpeg'
-    ]
+    modelo1: {
+      nombre: 'Zapatilla Jordans para niños',
+      precio: 70,
+      tallas: [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32],
+      imagenes: [
+        'imagenes/niños/modelo1/ZapatillaNiños1.jpeg',
+        'imagenes/niños/modelo1/ZapatillaNiños2.jpeg',
+        'imagenes/niños/modelo1/ZapatillaNiños3.jpeg',
+        'imagenes/niños/modelo1/ZapatillaNiños4.jpeg',
+        'imagenes/niños/modelo1/ZapatillaNiños5.jpeg',
+        'imagenes/niños/modelo1/ZapatillaNiños6.jpeg'
+      ]
+    }
   }
 };
+
+// Código de producto para WhatsApp: H-M1 (Hombre Modelo 1), M-M1, N-M1
+const CODIGO_PREFIJO = { hombre: 'H', mujer: 'M', ninos: 'N' };
+function getCodigoProducto(categoria, modelo) {
+  const pref = CODIGO_PREFIJO[categoria] || 'X';
+  const num = (modelo || '').replace(/\D/g, '') || '1';
+  return `${pref}-M${num}`;
+}
 
 // Estado
 let carrito = [];
 let carruselIndex = 0;
-let productoActual = null;
+let productoActual = { categoria: null, modelo: null };
 let tallaSeleccionada = null;
 
 // DOM
@@ -111,35 +126,95 @@ function cargarDistritos() {
 departamentoSelect.addEventListener('change', cargarProvincias);
 provinciaSelect.addEventListener('change', cargarDistritos);
 
+// Obtener producto del catálogo
+function getProducto(categoria, modelo) {
+  return CATALOGO[categoria]?.[modelo] || null;
+}
+
+// Generar grid de productos dinámicamente desde el catálogo
+function renderizarProductos() {
+  const secciones = { hombres: 'hombre', mujeres: 'mujer', ninos: 'ninos' };
+  for (const [idSeccion, categoria] of Object.entries(secciones)) {
+    const grid = document.querySelector(`#${idSeccion} .productos-grid`);
+    if (!grid || !CATALOGO[categoria]) continue;
+    const modelos = Object.keys(CATALOGO[categoria]);
+    grid.innerHTML = modelos.map(modelo => {
+      const prod = CATALOGO[categoria][modelo];
+      const codigo = getCodigoProducto(categoria, modelo);
+      return `
+        <article class="producto-card" data-categoria="${categoria}" data-modelo="${modelo}">
+          <div class="producto-imagen-wrap">
+            <img src="${prod.imagenes[0]}" alt="${prod.nombre}" class="producto-imagen">
+            <div class="producto-overlay">
+              <button class="btn-ver">Ver más</button>
+            </div>
+          </div>
+          <h3 class="producto-nombre">${prod.nombre}</h3>
+          <p class="producto-precio-visible">S/ ${prod.precio}</p>
+          <span class="producto-codigo">Cód. ${codigo}</span>
+        </article>
+      `;
+    }).join('');
+    grid.querySelectorAll('.producto-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const cat = card.dataset.categoria;
+        const mod = card.dataset.modelo;
+        if (getProducto(cat, mod)) abrirModalProducto(cat, mod);
+      });
+    });
+    grid.querySelectorAll('.btn-ver').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.producto-card');
+        const cat = card.dataset.categoria;
+        const mod = card.dataset.modelo;
+        if (getProducto(cat, mod)) abrirModalProducto(cat, mod);
+      });
+    });
+  }
+}
+
 // Abrir modal producto
-document.querySelectorAll('.producto-card').forEach(card => {
-  card.addEventListener('click', (e) => {
-    const cat = card.dataset.categoria;
-    if (!CATALOGO[cat]) return;
-    abrirModalProducto(cat);
-  });
-});
-
-document.querySelectorAll('.btn-ver').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const card = btn.closest('.producto-card');
-    const cat = card.dataset.categoria;
-    if (CATALOGO[cat]) abrirModalProducto(cat);
-  });
-});
-
-function abrirModalProducto(categoria) {
-  productoActual = categoria;
+function abrirModalProducto(categoria, modelo) {
+  productoActual = { categoria, modelo };
   tallaSeleccionada = null;
   carruselIndex = 0;
-  const prod = CATALOGO[categoria];
+  const prod = getProducto(categoria, modelo);
   if (!prod) return;
+
+  const codigo = getCodigoProducto(categoria, modelo);
+  const modelosDisponibles = Object.keys(CATALOGO[categoria] || {});
 
   modalTitulo.textContent = prod.nombre;
   modalPrecio.textContent = `S/ ${prod.precio}`;
   carruselImg.src = prod.imagenes[0];
   carruselImg.alt = prod.nombre;
+
+  // Selector de modelo (si hay más de uno)
+  const modeloSelectorWrap = document.getElementById('modeloSelectorWrap');
+  if (modeloSelectorWrap) {
+    modeloSelectorWrap.style.display = modelosDisponibles.length > 1 ? 'block' : 'none';
+    modeloSelectorWrap.innerHTML = modelosDisponibles.length > 1 ? `
+      <label>Modelo:</label>
+      <div class="modelo-btns">
+        ${modelosDisponibles.map(m => {
+          const p = CATALOGO[categoria][m];
+          const cod = getCodigoProducto(categoria, m);
+          return `<button type="button" class="modelo-btn ${m === modelo ? 'seleccionado' : ''}" data-modelo="${m}" data-categoria="${categoria}">${cod} - ${p.nombre}</button>`;
+        }).join('')}
+      </div>
+    ` : '';
+    modeloSelectorWrap.querySelectorAll('.modelo-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mod = btn.dataset.modelo;
+        const cat = btn.dataset.categoria;
+        abrirModalProducto(cat, mod);
+      });
+    });
+  }
+
+  const modalCodigoEl = document.getElementById('modalCodigo');
+  if (modalCodigoEl) modalCodigoEl.textContent = `Cód. ${codigo}`;
 
   // Tallas
   tallasWrap.innerHTML = prod.tallas.map(t => `
@@ -173,7 +248,7 @@ function abrirModalProducto(categoria) {
 
 // Carrusel
 function actualizarCarrusel() {
-  const prod = CATALOGO[productoActual];
+  const prod = getProducto(productoActual.categoria, productoActual.modelo);
   if (!prod) return;
   carruselImg.src = prod.imagenes[carruselIndex];
   carruselDots.querySelectorAll('.carrusel-dot').forEach((d, i) => {
@@ -182,14 +257,14 @@ function actualizarCarrusel() {
 }
 
 document.querySelector('.carrusel .prev')?.addEventListener('click', () => {
-  const prod = CATALOGO[productoActual];
+  const prod = getProducto(productoActual.categoria, productoActual.modelo);
   if (!prod) return;
   carruselIndex = (carruselIndex - 1 + prod.imagenes.length) % prod.imagenes.length;
   actualizarCarrusel();
 });
 
 document.querySelector('.carrusel .next')?.addEventListener('click', () => {
-  const prod = CATALOGO[productoActual];
+  const prod = getProducto(productoActual.categoria, productoActual.modelo);
   if (!prod) return;
   carruselIndex = (carruselIndex + 1) % prod.imagenes.length;
   actualizarCarrusel();
@@ -217,13 +292,20 @@ btnAddCart?.addEventListener('click', () => {
     alert('Por favor selecciona una talla.');
     return;
   }
-  const prod = CATALOGO[productoActual];
+  const prod = getProducto(productoActual.categoria, productoActual.modelo);
   if (!prod) return;
+  const codigo = getCodigoProducto(productoActual.categoria, productoActual.modelo);
+  const urlImagen = (typeof window !== 'undefined' && window.location.origin) 
+    ? `${window.location.origin}/${window.location.pathname.split('/').slice(0, -1).join('/') || ''}/${prod.imagenes[0]}`
+    : prod.imagenes[0];
   carrito.push({
-    categoria: productoActual,
+    categoria: productoActual.categoria,
+    modelo: productoActual.modelo,
+    codigo,
     nombre: prod.nombre,
     precio: prod.precio,
-    talla: tallaSeleccionada
+    talla: tallaSeleccionada,
+    imagenPrincipal: prod.imagenes[0]
   });
   actualizarCarrito();
   cerrarModal(modalProducto);
@@ -246,7 +328,7 @@ function actualizarCarrito() {
 
   carritoItems.innerHTML = carrito.map((item, i) => `
     <div class="carrito-item" data-index="${i}">
-      <span>${item.nombre} - Talla ${item.talla}</span>
+      <span><strong>${item.codigo || ''}</strong> ${item.nombre} - Talla ${item.talla}</span>
       <div class="carrito-item-right">
         <span>S/ ${item.precio}</span>
         <button type="button" class="btn-quitar" aria-label="Quitar producto" data-index="${i}">✕</button>
@@ -285,7 +367,14 @@ formCheckout?.addEventListener('submit', (e) => {
   const dist = distritoSelect.value;
   const direccion = document.getElementById('direccion').value.trim();
 
-  const items = carrito.map(i => `• ${i.nombre} - Talla ${i.talla} - S/ ${i.precio}`).join('\n');
+  const esUrlAbsoluta = typeof window !== 'undefined' && window.location.protocol?.startsWith('http');
+  const pathBase = window.location?.pathname?.replace(/\/[^/]*$/, '') || '';
+  const baseUrl = esUrlAbsoluta ? (window.location.origin + pathBase) : '';
+  const items = carrito.map(i => {
+    const linea = `• *${i.codigo || ''}* ${i.nombre} - Talla ${i.talla} - S/ ${i.precio}`;
+    const imgUrl = baseUrl ? `${baseUrl}/${i.imagenPrincipal}` : i.imagenPrincipal;
+    return `${linea}\n   📷 ${imgUrl}`;
+  }).join('\n');
   const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
   const total = subtotal + ENVIO_SHALOM;
 
@@ -296,7 +385,7 @@ formCheckout?.addEventListener('submit', (e) => {
 *Lugar de envío:* ${dist}, ${prov}, ${dep}
 *Dirección:* ${direccion}
 
-*Productos:*
+*Productos (código + imagen):*
 ${items}
 
 *Subtotal:* S/ ${subtotal}
@@ -304,7 +393,7 @@ ${items}
 *TOTAL:* S/ ${total}
 
 ---
-Último paso para adquirir el producto: comunicarse con nuestro asesor de ventas.`;
+Último paso: comunicarse con nuestro asesor de ventas para confirmar.`;
 
   const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, '_blank');
@@ -405,5 +494,6 @@ if (testimonioCards.length && testimoniosTrack && testimoniosDotsContainer) {
 }
 
 // Inicialización
+renderizarProductos();
 cargarDepartamentos();
 actualizarCarrito();
