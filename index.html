@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AttKia Moda | Zapatillas de Moda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <a href="#" class="logo">AttKia Moda</a>
+      <nav class="nav">
+        <a href="#hombres">Hombres</a>
+        <a href="#mujeres">Mujeres</a>
+        <a href="#ninos">Niños</a>
+      </nav>
+      <button class="cart-btn" id="cartBtn" aria-label="Ver carrito">
+        <span class="cart-icon">🛒</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Carrusel de presentación -->
+    <section class="hero">
+      <div class="hero-carrusel">
+        <div class="hero-slides" id="heroSlides">
+          <div class="hero-slide activo" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200')"></div>
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=1200')"></div>
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=1200')"></div>
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=1200')"></div>
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1200')"></div>
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1552346154-21d32810aba3?w=1200')"></div>
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1200')"></div>
+          <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=1200')"></div>
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h1>AttKia Moda</h1>
+          <p class="hero-tagline">Estilo que define tu paso</p>
+          <p class="hero-desc">Zapatillas de moda para hombres, mujeres y niños. Calidad y elegancia en cada paso.</p>
+        </div>
+        <button class="hero-carrusel-btn prev" aria-label="Anterior">‹</button>
+        <button class="hero-carrusel-btn next" aria-label="Siguiente">›</button>
+        <div class="hero-dots" id="heroDots"></div>
+      </div>
+    </section>
+
+    <!-- Hombres -->
+    <section class="categoria" id="hombres">
+      <h2 class="section-title">Hombre</h2>
+      <div class="productos-grid">
+        <article class="producto-card" data-categoria="hombre" data-id="hombre-1">
+          <div class="producto-imagen-wrap">
+            <img src="imagenes/hombres/modelo1/zapatilla_Cat1.jpeg" alt="Zapatilla Cat para hombre" class="producto-imagen">
+            <div class="producto-overlay">
+              <button class="btn-ver">Ver más</button>
+            </div>
+          </div>
+          <h3 class="producto-nombre">Zapatilla Cat para hombre</h3>
+          <p class="producto-precio-visible">S/ 180</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Mujeres -->
+    <section class="categoria" id="mujeres">
+      <h2 class="section-title">Mujer</h2>
+      <div class="productos-grid">
+        <article class="producto-card" data-categoria="mujer" data-id="mujer-1">
+          <div class="producto-imagen-wrap">
+            <img src="imagenes/mujeres/modelo1/ZapatillaNikeMujer1.jpeg" alt="Zapatilla Nike para mujer" class="producto-imagen">
+            <div class="producto-overlay">
+              <button class="btn-ver">Ver más</button>
+            </div>
+          </div>
+          <h3 class="producto-nombre">Zapatilla Nike para mujer</h3>
+          <p class="producto-precio-visible">S/ 75</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Niños -->
+    <section class="categoria" id="ninos">
+      <h2 class="section-title">Niños</h2>
+      <div class="productos-grid">
+        <article class="producto-card" data-categoria="ninos" data-id="ninos-1">
+          <div class="producto-imagen-wrap">
+            <img src="imagenes/niños/modelo1/ZapatillaNiños1.jpeg" alt="Zapatilla Jordans para niños" class="producto-imagen">
+            <div class="producto-overlay">
+              <button class="btn-ver">Ver más</button>
+            </div>
+          </div>
+          <h3 class="producto-nombre">Zapatilla Jordans para niños</h3>
+          <p class="producto-precio-visible">S/ 70</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Testimonios de clientes -->
+    <section class="testimonios" id="testimonios">
+      <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+      <div class="testimonios-carrusel">
+        <button class="testimonio-btn prev" aria-label="Anterior">‹</button>
+        <div class="testimonios-track">
+          <div class="testimonio-card">
+            <div class="testimonio-foto" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400')"></div>
+            <p class="testimonio-texto">"Excelente calidad, llegaron súper rápido. Muy contento con mi compra."</p>
+            <p class="testimonio-cliente">— Carlos M., Huánuco</p>
+          </div>
+          <div class="testimonio-card">
+            <div class="testimonio-foto" style="background-image: url('https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=400')"></div>
+            <p class="testimonio-texto">"Las zapatillas son tal cual las fotos. Super recomendado AttKia Moda."</p>
+            <p class="testimonio-cliente">— María L., Lima</p>
+          </div>
+          <div class="testimonio-card">
+            <div class="testimonio-foto" style="background-image: url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=400')"></div>
+            <p class="testimonio-texto">"Segunda compra y siempre excelente. Envío por Shalom sin problemas."</p>
+            <p class="testimonio-cliente">— José R., Arequipa</p>
+          </div>
+          <div class="testimonio-card">
+            <div class="testimonio-foto" style="background-image: url('https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400')"></div>
+            <p class="testimonio-texto">"Atención increíble y productos de primera. 100% recomendado."</p>
+            <p class="testimonio-cliente">— Ana G., Cusco</p>
+          </div>
+        </div>
+        <button class="testimonio-btn next" aria-label="Siguiente">›</button>
+      </div>
+      <div class="testimonios-dots" id="testimoniosDots"></div>
+    </section>
+  </main>
+
+  <!-- Modal producto -->
+  <div class="modal-overlay" id="modalProducto">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
+      <div class="modal-content">
+        <div class="modal-galeria">
+          <div class="carrusel">
+            <button class="carrusel-btn prev" aria-label="Anterior">‹</button>
+            <div class="carrusel-track">
+              <img src="" alt="" class="carrusel-img" id="carruselImg">
+            </div>
+            <button class="carrusel-btn next" aria-label="Siguiente">›</button>
+          </div>
+          <div class="carrusel-dots" id="carruselDots"></div>
+        </div>
+        <div class="modal-info">
+          <h2 class="modal-titulo" id="modalTitulo"></h2>
+          <p class="modal-precio" id="modalPrecio"></p>
+          <div class="tallas-wrap">
+            <label>Talla:</label>
+            <div class="tallas" id="tallasWrap"></div>
+          </div>
+          <p class="envio-info">Envío nacional por Shalom + S/ 5</p>
+          <button class="btn-add-cart" id="btnAddCart">Adquirir producto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal carrito / checkout -->
+  <div class="modal-overlay" id="modalCarrito">
+    <div class="modal modal-carrito">
+      <button class="modal-close" id="carritoClose" aria-label="Cerrar">&times;</button>
+      <h2 class="modal-titulo">Tu pedido</h2>
+      <div class="carrito-items" id="carritoItems"></div>
+      <div class="carrito-total">
+        <p>Subtotal: <span id="subtotal">S/ 0</span></p>
+        <p>Envío Shalom: <span>S/ 5</span></p>
+        <p class="total">Total: <span id="totalCarrito">S/ 5</span></p>
+      </div>
+      <form class="form-checkout" id="formCheckout">
+        <h3>Datos para el envío</h3>
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" required placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label for="celular">Celular / WhatsApp</label>
+          <input type="tel" id="celular" required placeholder="999 888 777">
+        </div>
+        <div class="form-group">
+          <label for="departamento">Departamento</label>
+          <select id="departamento" required>
+            <option value="">Selecciona departamento</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="provincia">Provincia</label>
+          <select id="provincia" required disabled>
+            <option value="">Primero selecciona departamento</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="distrito">Distrito</label>
+          <select id="distrito" required disabled>
+            <option value="">Primero selecciona provincia</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="direccion">Dirección / Referencia</label>
+          <input type="text" id="direccion" required placeholder="Calle, número, referencia">
+        </div>
+        <p class="shalom-msg">Envío por Shalom a nivel nacional. Te ubicaremos la agencia más cercana a tu destino.</p>
+        <button type="submit" class="btn-whatsapp" id="btnWhatsApp">
+          Finalizar y enviar a WhatsApp
+        </button>
+      </form>
+      <p class="asesor-msg">Último paso: comunícate con nuestro asesor de ventas para confirmar tu pedido.</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>AttKia Moda — Envíos nacionales por Shalom</p>
+    <a href="https://wa.me/51933484150" target="_blank" rel="noopener" class="footer-whatsapp">Contactar: 933 484 150</a>
+  </footer>
+
+  <script src="js/ubicaciones.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
