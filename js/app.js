@@ -65,6 +65,7 @@ function getCodigoProducto(categoria, modelo) {
 // Estado
 let carrito = [];
 let carruselIndex = 0;
+let fotoElegidaIndex = 0; // foto que el cliente elige para su pedido (envío WhatsApp)
 let productoActual = { categoria: null, modelo: null };
 let tallaSeleccionada = null;
 
@@ -179,6 +180,7 @@ function abrirModalProducto(categoria, modelo) {
   productoActual = { categoria, modelo };
   tallaSeleccionada = null;
   carruselIndex = 0;
+  fotoElegidaIndex = 0;
   const prod = getProducto(categoria, modelo);
   if (!prod) return;
 
@@ -189,6 +191,8 @@ function abrirModalProducto(categoria, modelo) {
   modalPrecio.textContent = `S/ ${prod.precio}`;
   carruselImg.src = prod.imagenes[0];
   carruselImg.alt = prod.nombre;
+
+  document.getElementById('carruselContainer')?.classList.remove('zoom-activo');
 
   // Selector de modelo (si hay más de uno)
   const modeloSelectorWrap = document.getElementById('modeloSelectorWrap');
@@ -216,6 +220,26 @@ function abrirModalProducto(categoria, modelo) {
   const modalCodigoEl = document.getElementById('modalCodigo');
   if (modalCodigoEl) modalCodigoEl.textContent = `Cód. ${codigo}`;
 
+  // Elige la foto de referencia (thumbnails)
+  const fotoThumbnails = document.getElementById('fotoThumbnails');
+  if (fotoThumbnails) {
+    fotoThumbnails.innerHTML = prod.imagenes.map((src, i) => `
+      <button type="button" class="foto-thumb ${i === 0 ? 'seleccionada' : ''}" data-index="${i}" aria-label="Elegir foto ${i + 1}">
+        <img src="${src}" alt="">
+      </button>
+    `).join('');
+    fotoThumbnails.querySelectorAll('.foto-thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        const idx = parseInt(thumb.dataset.index, 10);
+        fotoElegidaIndex = idx;
+        carruselIndex = idx;
+        actualizarCarrusel();
+        fotoThumbnails.querySelectorAll('.foto-thumb').forEach(t => t.classList.remove('seleccionada'));
+        thumb.classList.add('seleccionada');
+      });
+    });
+  }
+
   // Tallas
   tallasWrap.innerHTML = prod.tallas.map(t => `
     <button type="button" class="talla-btn" data-talla="${t}">${t}</button>
@@ -238,9 +262,21 @@ function abrirModalProducto(categoria, modelo) {
     dot.addEventListener('click', () => {
       const idx = parseInt(dot.dataset.index);
       carruselIndex = idx;
+      fotoElegidaIndex = idx;
       actualizarCarrusel();
+      const thumbs = document.querySelectorAll('.foto-thumb');
+      thumbs.forEach((t, i) => t.classList.toggle('seleccionada', i === idx));
     });
   });
+
+  // Zoom al tocar (móvil) en la imagen del carrusel
+  const carruselContainer = document.getElementById('carruselContainer');
+  if (carruselContainer) {
+    carruselContainer.onclick = (e) => {
+      if (e.target.closest('.carrusel-btn')) return;
+      carruselContainer.classList.toggle('zoom-activo');
+    };
+  }
 
   modalProducto.classList.add('activo');
   document.body.style.overflow = 'hidden';
@@ -254,19 +290,25 @@ function actualizarCarrusel() {
   carruselDots.querySelectorAll('.carrusel-dot').forEach((d, i) => {
     d.classList.toggle('activo', i === carruselIndex);
   });
+  const thumbs = document.querySelectorAll('.foto-thumb');
+  thumbs.forEach((t, i) => t.classList.toggle('seleccionada', i === fotoElegidaIndex));
 }
 
-document.querySelector('.carrusel .prev')?.addEventListener('click', () => {
+document.querySelector('.carrusel .prev')?.addEventListener('click', (e) => {
+  e.stopPropagation();
   const prod = getProducto(productoActual.categoria, productoActual.modelo);
   if (!prod) return;
   carruselIndex = (carruselIndex - 1 + prod.imagenes.length) % prod.imagenes.length;
+  fotoElegidaIndex = carruselIndex;
   actualizarCarrusel();
 });
 
-document.querySelector('.carrusel .next')?.addEventListener('click', () => {
+document.querySelector('.carrusel .next')?.addEventListener('click', (e) => {
+  e.stopPropagation();
   const prod = getProducto(productoActual.categoria, productoActual.modelo);
   if (!prod) return;
   carruselIndex = (carruselIndex + 1) % prod.imagenes.length;
+  fotoElegidaIndex = carruselIndex;
   actualizarCarrusel();
 });
 
@@ -286,7 +328,7 @@ modalCarrito?.addEventListener('click', (e) => {
   if (e.target === modalCarrito) cerrarModal(modalCarrito);
 });
 
-// Agregar al carrito
+// Agregar al carrito (usa la foto elegida por el cliente)
 btnAddCart?.addEventListener('click', () => {
   if (!tallaSeleccionada) {
     alert('Por favor selecciona una talla.');
@@ -295,9 +337,7 @@ btnAddCart?.addEventListener('click', () => {
   const prod = getProducto(productoActual.categoria, productoActual.modelo);
   if (!prod) return;
   const codigo = getCodigoProducto(productoActual.categoria, productoActual.modelo);
-  const urlImagen = (typeof window !== 'undefined' && window.location.origin) 
-    ? `${window.location.origin}/${window.location.pathname.split('/').slice(0, -1).join('/') || ''}/${prod.imagenes[0]}`
-    : prod.imagenes[0];
+  const imagenElegida = prod.imagenes[fotoElegidaIndex] ?? prod.imagenes[0];
   carrito.push({
     categoria: productoActual.categoria,
     modelo: productoActual.modelo,
@@ -305,7 +345,7 @@ btnAddCart?.addEventListener('click', () => {
     nombre: prod.nombre,
     precio: prod.precio,
     talla: tallaSeleccionada,
-    imagenPrincipal: prod.imagenes[0]
+    imagenPrincipal: imagenElegida
   });
   actualizarCarrito();
   cerrarModal(modalProducto);
@@ -492,6 +532,34 @@ if (testimonioCards.length && testimoniosTrack && testimoniosDotsContainer) {
     });
   });
 }
+
+// Navegación móvil (hamburguesa)
+const navToggle = document.getElementById('navToggle');
+const nav = document.getElementById('nav');
+const navBackdrop = document.getElementById('navBackdrop');
+
+function cerrarNav() {
+  nav?.classList.remove('activo');
+  navBackdrop?.classList.remove('activo');
+  navToggle?.setAttribute('aria-expanded', 'false');
+}
+
+function abrirNav() {
+  nav?.classList.add('activo');
+  navBackdrop?.classList.add('activo');
+  navToggle?.setAttribute('aria-expanded', 'true');
+}
+
+navToggle?.addEventListener('click', () => {
+  if (nav?.classList.contains('activo')) cerrarNav();
+  else abrirNav();
+});
+
+navBackdrop?.addEventListener('click', cerrarNav);
+
+nav?.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', cerrarNav);
+});
 
 // Inicialización
 renderizarProductos();

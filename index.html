@@ -13,7 +13,10 @@
   <header class="header">
     <div class="header-content">
       <a href="#" class="logo">AttKia Moda</a>
-      <nav class="nav">
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav" id="nav">
         <a href="#hombres">Hombres</a>
         <a href="#mujeres">Mujeres</a>
         <a href="#ninos">Niños</a>
@@ -23,6 +26,7 @@
         <span class="cart-count" id="cartCount">0</span>
       </button>
     </div>
+    <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
   </header>
 
   <main class="main">
@@ -108,12 +112,16 @@
       <button class="modal-close" id="modalClose" aria-label="Cerrar">&times;</button>
       <div class="modal-content">
         <div class="modal-galeria">
-          <div class="carrusel">
+          <div class="carrusel" id="carruselContainer">
             <button class="carrusel-btn prev" aria-label="Anterior">‹</button>
             <div class="carrusel-track">
               <img src="" alt="" class="carrusel-img" id="carruselImg">
             </div>
             <button class="carrusel-btn next" aria-label="Siguiente">›</button>
+          </div>
+          <div class="foto-elegir-wrap" id="fotoElegirWrap">
+            <label>Elige la foto de referencia para tu pedido:</label>
+            <div class="foto-thumbnails" id="fotoThumbnails"></div>
           </div>
           <div class="carrusel-dots" id="carruselDots"></div>
         </div>
