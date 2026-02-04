@@ -1,0 +1,4 @@
+# No ignorar nada por defecto; el proyecto es solo HTML/CSS/JS e imágenes
+# Añade aquí carpetas que no quieras subir, por ejemplo:
+# node_modules
+# .git
