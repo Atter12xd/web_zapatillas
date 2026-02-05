@@ -69,15 +69,17 @@ const CATALOGO = {
       ]
     },
     modelo3: {
-      nombre: 'Zapatilla Nike para mujer',
-      precio: 70,
+      nombre: 'Zapatilla Adidas para mujeres',
+      precio: 75,
       tallas: [35, 36, 37, 38, 39],
       imagenes: [
-        'imagenes/mujeres/modelo3/zapatillaNikeM1.jpeg',
-        'imagenes/mujeres/modelo3/zapatillaNikeM2.jpeg',
-        'imagenes/mujeres/modelo3/zapatillaNikeM3.jpeg',
-        'imagenes/mujeres/modelo3/zapatillaNikeM4.jpeg',
-        'imagenes/mujeres/modelo3/zapatillaNikeM5.jpeg'
+        'imagenes/mujeres/modelo3/zapatillaAdidasM1.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaAdidasM2.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaAdidasM3.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaAdidasM4.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaAdidasM5.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaAdidasM6.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaAdidasM7.jpeg'
       ]
     }
   },
