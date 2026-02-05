@@ -21,6 +21,27 @@ const CATALOGO = {
         'imagenes/hombres/modelo1/zapatilla_Cat4.jpeg',
         'imagenes/hombres/modelo1/zapatilla_Cat5.jpeg'
       ]
+    },
+    modelo2: {
+      nombre: 'Zapatilla Adidas para hombre',
+      precio: 65,
+      tallas: [38, 39, 40, 41, 42, 43],
+      imagenes: [
+        'imagenes/hombres/modelo2/zapatillaAdidasH1.jpeg',
+        'imagenes/hombres/modelo2/zapatillaAdidasH2.jpeg'
+      ]
+    },
+    modelo3: {
+      nombre: 'Zapatilla Reebok para hombre',
+      precio: 70,
+      tallas: [39, 40, 41, 42, 43],
+      imagenes: [
+        'imagenes/hombres/modelo3/ZapatillaReebok1.jpeg',
+        'imagenes/hombres/modelo3/ZapatillaReebok2.jpeg',
+        'imagenes/hombres/modelo3/ZapatillaReebok3.jpeg',
+        'imagenes/hombres/modelo3/ZapatillaReebok4.jpeg',
+        'imagenes/hombres/modelo3/ZapatillaReebok5.jpeg'
+      ]
     }
   },
   mujer: {
@@ -34,6 +55,29 @@ const CATALOGO = {
         'imagenes/mujeres/modelo1/ZapatillaNikeMujer3.jpeg',
         'imagenes/mujeres/modelo1/ZapatillaNikeMujer4.jpeg',
         'imagenes/mujeres/modelo1/ZapatillaNikeMujer5.jpeg'
+      ]
+    },
+    modelo2: {
+      nombre: 'Zapatilla Puma para mujer',
+      precio: 70,
+      tallas: [35, 36, 37, 38, 39],
+      imagenes: [
+        'imagenes/mujeres/modelo2/zapatillaPumaM1.jpeg',
+        'imagenes/mujeres/modelo2/zapatillaPumaM2.jpeg',
+        'imagenes/mujeres/modelo2/zapatillaPumaM3.jpeg',
+        'imagenes/mujeres/modelo2/zapatillaPumaM4.jpeg'
+      ]
+    },
+    modelo3: {
+      nombre: 'Zapatilla Nike para mujer',
+      precio: 70,
+      tallas: [35, 36, 37, 38, 39],
+      imagenes: [
+        'imagenes/mujeres/modelo3/zapatillaNikeM1.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaNikeM2.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaNikeM3.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaNikeM4.jpeg',
+        'imagenes/mujeres/modelo3/zapatillaNikeM5.jpeg'
       ]
     }
   },
@@ -132,14 +176,15 @@ function getProducto(categoria, modelo) {
   return CATALOGO[categoria]?.[modelo] || null;
 }
 
-// Generar grid de productos dinámicamente desde el catálogo
+// Generar productos dinámicamente y configurar carrusel con flechas
 function renderizarProductos() {
   const secciones = { hombres: 'hombre', mujeres: 'mujer', ninos: 'ninos' };
   for (const [idSeccion, categoria] of Object.entries(secciones)) {
-    const grid = document.querySelector(`#${idSeccion} .productos-grid`);
-    if (!grid || !CATALOGO[categoria]) continue;
+    const track = document.querySelector(`#${idSeccion} .productos-track`);
+    const wrap = document.querySelector(`#${idSeccion} .productos-carrusel-wrap`);
+    if (!track || !wrap || !CATALOGO[categoria]) continue;
     const modelos = Object.keys(CATALOGO[categoria]);
-    grid.innerHTML = modelos.map(modelo => {
+    track.innerHTML = modelos.map(modelo => {
       const prod = CATALOGO[categoria][modelo];
       const codigo = getCodigoProducto(categoria, modelo);
       return `
@@ -156,14 +201,14 @@ function renderizarProductos() {
         </article>
       `;
     }).join('');
-    grid.querySelectorAll('.producto-card').forEach(card => {
+    track.querySelectorAll('.producto-card').forEach(card => {
       card.addEventListener('click', () => {
         const cat = card.dataset.categoria;
         const mod = card.dataset.modelo;
         if (getProducto(cat, mod)) abrirModalProducto(cat, mod);
       });
     });
-    grid.querySelectorAll('.btn-ver').forEach(btn => {
+    track.querySelectorAll('.btn-ver').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const card = btn.closest('.producto-card');
@@ -172,6 +217,23 @@ function renderizarProductos() {
         if (getProducto(cat, mod)) abrirModalProducto(cat, mod);
       });
     });
+    // Flechas del carrusel de productos
+    const btnPrev = wrap.querySelector('.productos-carrusel-btn.prev');
+    const btnNext = wrap.querySelector('.productos-carrusel-btn.next');
+    if (btnPrev) {
+      btnPrev.addEventListener('click', () => {
+        const cardWidth = track.querySelector('.producto-card')?.offsetWidth || 300;
+        const gap = 32;
+        track.scrollBy({ left: -(cardWidth + gap), behavior: 'smooth' });
+      });
+    }
+    if (btnNext) {
+      btnNext.addEventListener('click', () => {
+        const cardWidth = track.querySelector('.producto-card')?.offsetWidth || 300;
+        const gap = 32;
+        track.scrollBy({ left: cardWidth + gap, behavior: 'smooth' });
+      });
+    }
   }
 }
 
