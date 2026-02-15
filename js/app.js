@@ -629,28 +629,35 @@ function abrirLightboxTestimonio(src, tipo) {
 
 function cerrarLightboxTestimonio() {
   if (!lightboxOverlay) return;
-  lightboxOverlay.classList.remove('activo');
-  lightboxOverlay.setAttribute('aria-hidden', 'true');
   lightboxVideo.pause();
   lightboxVideo.src = '';
   lightboxImg.src = '';
+  lightboxVideo.blur();
+  document.activeElement?.blur();
+  lightboxOverlay.classList.remove('activo');
+  lightboxOverlay.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
 
-document.querySelectorAll('.testimonio-media img').forEach(img => {
-  img.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const src = img.src || img.getAttribute('src');
-    if (src) abrirLightboxTestimonio(src, 'image');
-  });
-});
-
-document.querySelectorAll('.testimonio-media video').forEach(video => {
-  video.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const src = video.src || video.getAttribute('src');
-    if (src) abrirLightboxTestimonio(src, 'video');
+// Clic en cualquier foto o video de testimonio abre el lightbox (área completa clickeable)
+document.querySelectorAll('.testimonio-media').forEach(media => {
+  media.addEventListener('click', (e) => {
+    if (e.target.closest('.testimonio-media-prev, .testimonio-media-next')) return;
+    const itemActivo = media.querySelector('.testimonio-media-item.activo');
+    if (!itemActivo) return;
+    const img = itemActivo.querySelector('img');
+    const video = itemActivo.querySelector('video');
+    if (video && (e.target === video || video.contains(e.target))) {
+      e.preventDefault();
+      const src = video.getAttribute('src') || video.src;
+      if (src) abrirLightboxTestimonio(src, 'video');
+      return;
+    }
+    if (img) {
+      e.preventDefault();
+      const src = img.getAttribute('src') || img.src;
+      if (src) abrirLightboxTestimonio(src, 'image');
+    }
   });
 });
 
