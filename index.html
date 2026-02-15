@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=4">
+  <link rel="stylesheet" href="css/styles.css?v=5">
 </head>
 <body>
   <header class="header">
@@ -92,27 +92,31 @@
       <div class="testimonios-carrusel">
         <button class="testimonio-btn prev" aria-label="Anterior">‹</button>
         <div class="testimonios-track">
-          <!-- Testimonio 1: Gilarde Basilio -->
+          <!-- Testimonio 1: Gilarde Basilio - perfil=persona, media=zapatilla -->
           <div class="testimonio-card">
-            <div class="testimonio-perfil" style="background-image: url('imagenes/hombres/testimonio1/testi1.jpeg')"></div>
-            <div class="testimonio-media">
+            <div class="testimonio-perfil-wrap">
+              <img class="testimonio-perfil-img" src="imagenes/hombres/testimonio1/perfil.jpeg" alt="Gilarde Basilio" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=GB&background=2a2a2a&color=c9a962&size=112'">
+            </div>
+            <div class="testimonio-media testimonio-media-zoom">
               <div class="testimonio-media-item activo">
-                <img src="imagenes/hombres/testimonio1/testi1.jpeg" alt="Prueba Gilarde Basilio">
+                <img src="imagenes/hombres/testimonio1/testi1.jpeg" alt="Zapatilla Gilarde Basilio">
               </div>
             </div>
             <p class="testimonio-texto">"Ya me llegó en buen estado gracias AttKia Moda"</p>
             <p class="testimonio-estrellas">★★★★★</p>
             <p class="testimonio-cliente">— Gilarde Basilio</p>
           </div>
-          <!-- Testimonio 2: Calep Rojas - 3 fotos zapatillas deporte -->
+          <!-- Testimonio 2: Calep Rojas - perfil=persona, 3 fotos zapatillas con zoom -->
           <div class="testimonio-card">
-            <div class="testimonio-perfil" style="background-image: url('imagenes/hombres/testimonio2/foto1.jpeg')"></div>
-            <div class="testimonio-media carrusel-interno">
+            <div class="testimonio-perfil-wrap">
+              <img class="testimonio-perfil-img" src="imagenes/hombres/testimonio2/perfil.jpeg" alt="Calep Rojas" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=CR&background=2a2a2a&color=c9a962&size=112'">
+            </div>
+            <div class="testimonio-media carrusel-interno testimonio-media-zoom">
               <button class="testimonio-media-prev">‹</button>
               <div class="testimonio-media-slides">
-                <div class="testimonio-media-item activo"><img src="imagenes/hombres/testimonio2/foto1.jpeg" alt="Zapatillas deporte Calep" onerror="this.onerror=null;this.classList.add('img-error')"></div>
-                <div class="testimonio-media-item"><img src="imagenes/hombres/testimonio2/foto2.jpeg" alt="Zapatillas deporte Calep" onerror="this.onerror=null;this.classList.add('img-error')"></div>
-                <div class="testimonio-media-item"><img src="imagenes/hombres/testimonio2/foto3.jpeg" alt="Zapatillas deporte Calep" onerror="this.onerror=null;this.classList.add('img-error')"></div>
+                <div class="testimonio-media-item activo"><img src="imagenes/hombres/testimonio2/testi1.jpeg" alt="Zapatillas deporte Calep" onerror="log404(this.src);if(this.classList)this.classList.add('img-error')"></div>
+                <div class="testimonio-media-item"><img src="imagenes/hombres/testimonio2/testi2.jpeg" alt="Zapatillas deporte Calep" onerror="log404(this.src);if(this.classList)this.classList.add('img-error')"></div>
+                <div class="testimonio-media-item"><img src="imagenes/hombres/testimonio2/testi3.jpeg" alt="Zapatillas deporte Calep" onerror="log404(this.src);if(this.classList)this.classList.add('img-error')"></div>
               </div>
               <button class="testimonio-media-next">›</button>
             </div>
@@ -120,17 +124,19 @@
             <p class="testimonio-estrellas">★★★★★</p>
             <p class="testimonio-cliente">— Calep Rojas</p>
           </div>
-          <!-- Testimonio 3: Orfila Rengifo - foto + video -->
+          <!-- Testimonio 3: Orfila Rengifo - perfil=persona, foto+video zapatilla con zoom -->
           <div class="testimonio-card">
-            <div class="testimonio-perfil" style="background-image: url('imagenes/mujeres/testimonio1/foto1.jpeg')"></div>
-            <div class="testimonio-media carrusel-interno">
+            <div class="testimonio-perfil-wrap">
+              <img class="testimonio-perfil-img" src="imagenes/mujeres/testimonio1/perfil.jpeg" alt="Orfila Rengifo" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=OR&background=2a2a2a&color=c9a962&size=112'">
+            </div>
+            <div class="testimonio-media carrusel-interno testimonio-media-zoom">
               <button class="testimonio-media-prev">‹</button>
               <div class="testimonio-media-slides">
                 <div class="testimonio-media-item activo">
-                  <img src="imagenes/mujeres/testimonio1/foto1.jpeg" alt="Zapatillas Orfila">
+                  <img src="imagenes/mujeres/testimonio1/testi1.jpeg" alt="Zapatillas Orfila" onerror="log404(this.src);if(this.classList)this.classList.add('img-error')">
                 </div>
                 <div class="testimonio-media-item">
-                  <video src="imagenes/mujeres/testimonio1/video1.mp4" poster="imagenes/mujeres/testimonio1/foto1.jpeg" controls muted loop playsinline preload="metadata"></video>
+                  <video src="imagenes/mujeres/testimonio1/video1.mp4" poster="imagenes/mujeres/testimonio1/testi1.jpeg" controls muted loop playsinline preload="metadata" onerror="log404(this.src)"></video>
                 </div>
               </div>
               <button class="testimonio-media-next">›</button>
@@ -234,11 +240,11 @@
   </div>
 
   <footer class="footer">
-    <p>AttKia Moda — Envíos nacionales por Shalom <span style="opacity:0.5;font-size:0.75rem">v4</span></p>
+    <p>AttKia Moda — Envíos nacionales por Shalom <span style="opacity:0.5;font-size:0.75rem">v5</span></p>
     <a href="https://wa.me/51933484150" target="_blank" rel="noopener" class="footer-whatsapp">Contactar: 933 484 150</a>
   </footer>
 
-  <script src="js/ubicaciones.js?v=4"></script>
-  <script src="js/app.js?v=4"></script>
+  <script src="js/ubicaciones.js?v=5"></script>
+  <script src="js/app.js?v=5"></script>
 </body>
 </html>

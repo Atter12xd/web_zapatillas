@@ -104,14 +104,23 @@ Los testimonios están en `index.html` dentro de la sección `#testimonios`. Cad
 - **Estrellas:** ★★★★★
 - **Cliente:** nombre
 
-**Estructura de carpetas para testimonios (¡deben existir estos archivos!):**
+**Estructura de carpetas para testimonios:**
 ```
-imagenes/hombres/testimonio1/  → testi1.jpeg (Gilarde Basilio)
-imagenes/hombres/testimonio2/  → foto1.jpeg, foto2.jpeg, foto3.jpeg (Calep Rojas)
-imagenes/mujeres/testimonio1/  → foto1.jpeg, video1.mp4 (Orfila Rengifo)
+imagenes/hombres/testimonio1/
+  → perfil.jpeg  (foto de la persona, NO del producto)
+  → testi1.jpeg  (foto de la zapatilla)
+
+imagenes/hombres/testimonio2/
+  → perfil.jpeg  (foto de Calep)
+  → testi1.jpeg, testi2.jpeg, testi3.jpeg  (fotos zapatillas)
+
+imagenes/mujeres/testimonio1/
+  → perfil.jpeg  (foto de Orfila)
+  → testi1.jpeg  (foto zapatilla)
+  → video1.mp4   (video de la zapatilla)
 ```
 
-Si faltan fotos en testimonio2, se mostrará un placeholder. Para Orfila, la foto se muestra primero; el video en la segunda posición del carrusel.
+**Importante:** El perfil debe ser foto de la persona, no del producto. Si falta perfil.jpeg, se usa avatar con iniciales.
 
 Para agregar video: usa `<video src="ruta/video.mp4" controls muted loop playsinline></video>`. Formatos recomendados: MP4, WebM.
 

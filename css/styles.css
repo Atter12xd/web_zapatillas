@@ -1127,14 +1127,19 @@ body {
   border-color: var(--color-gold);
 }
 
-.testimonio-perfil {
+.testimonio-perfil-wrap {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background-color: var(--color-border);
-  background-size: cover;
-  background-position: center;
   margin: 1rem auto 0.5rem;
+  overflow: hidden;
+  background: var(--color-border);
+}
+
+.testimonio-perfil-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .testimonio-media {
@@ -1180,6 +1185,33 @@ body {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+
+/* Zoom en fotos de zapatilla en testimonios */
+.testimonio-media-zoom {
+  cursor: zoom-in;
+}
+
+.testimonio-media-zoom.zoom-activo {
+  cursor: zoom-out;
+}
+
+.testimonio-media-zoom .testimonio-media-item img {
+  transition: transform 0.35s ease;
+}
+
+.testimonio-media-zoom:hover .testimonio-media-item.activo img {
+  transform: scale(1.08);
+}
+
+.testimonio-media-zoom.zoom-activo .testimonio-media-item.activo img {
+  transform: scale(1.5);
+}
+
+@media (hover: none) {
+  .testimonio-media-zoom.zoom-activo .testimonio-media-item.activo img {
+    transform: scale(1.5);
+  }
 }
 
 /* Carrusel interno (varias fotos o video+foto) */

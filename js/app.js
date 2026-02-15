@@ -4,6 +4,12 @@
  */
 
 const WHATSAPP_NUMERO = '51933484150';
+
+// Debug: log 404 en consola para ver recursos que no cargan
+function log404(url) {
+  console.warn('[AttKia] Recurso no encontrado (404):', url);
+  console.warn('→ Verifica que el archivo exista en la carpeta correcta');
+}
 const ENVIO_SHALOM = 5;
 
 // Catálogo dinámico: categoría > modelo > datos del producto
@@ -596,6 +602,14 @@ if (testimonioCards.length && testimoniosTrack && testimoniosDotsContainer) {
     });
   });
 }
+
+// Zoom al tocar en fotos de testimonios (zapatillas)
+document.querySelectorAll('.testimonio-media-zoom').forEach(wrap => {
+  wrap.addEventListener('click', (e) => {
+    if (e.target.closest('.testimonio-media-prev, .testimonio-media-next') || e.target.closest('video')) return;
+    wrap.classList.toggle('zoom-activo');
+  });
+});
 
 // Carrusel interno en testimonios (varias fotos o video+foto)
 document.querySelectorAll('.testimonio-media.carrusel-interno').forEach(wrap => {
