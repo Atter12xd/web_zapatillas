@@ -1186,31 +1186,10 @@ body {
   object-fit: cover;
 }
 
-/* Zoom en fotos de zapatilla en testimonios */
-.testimonio-media-zoom {
-  cursor: zoom-in;
-}
-
-.testimonio-media-zoom.zoom-activo {
-  cursor: zoom-out;
-}
-
-.testimonio-media-zoom .testimonio-media-item img {
-  transition: transform 0.35s ease;
-}
-
-.testimonio-media-zoom:hover .testimonio-media-item.activo img {
-  transform: scale(1.08);
-}
-
-.testimonio-media-zoom.zoom-activo .testimonio-media-item.activo img {
-  transform: scale(1.5);
-}
-
-@media (hover: none) {
-  .testimonio-media-zoom.zoom-activo .testimonio-media-item.activo img {
-    transform: scale(1.5);
-  }
+/* Click para abrir lightbox - cursor pointer en fotos/videos de testimonios */
+.testimonio-media img,
+.testimonio-media video {
+  cursor: pointer;
 }
 
 /* Carrusel interno (varias fotos o video+foto) */
@@ -1309,4 +1288,88 @@ body {
 .testimonio-dot.activo {
   background: var(--color-gold);
   transform: scale(1.25);
+}
+
+/* Lightbox para fotos/videos de testimonios */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox-overlay.activo {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-overlay .lightbox-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  max-width: 95vw;
+  max-height: 90vh;
+  animation: lightboxIn 0.3s ease forwards;
+}
+
+@keyframes lightboxIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lightbox-overlay .lightbox-img {
+  max-width: 95vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.lightbox-overlay .lightbox-video {
+  max-width: 95vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.lightbox-overlay .lightbox-img.oculto,
+.lightbox-overlay .lightbox-video.oculto {
+  display: none !important;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10000;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.lightbox-close:hover {
+  background: rgba(201, 169, 98, 0.5);
+  border-color: var(--color-gold);
+  color: var(--color-gold);
 }

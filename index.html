@@ -97,7 +97,7 @@
             <div class="testimonio-perfil-wrap">
               <img class="testimonio-perfil-img" src="imagenes/hombres/testimonio1/perfil.jpeg" alt="Gilarde Basilio" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=GB&background=2a2a2a&color=c9a962&size=112'">
             </div>
-            <div class="testimonio-media testimonio-media-zoom">
+            <div class="testimonio-media">
               <div class="testimonio-media-item activo">
                 <img src="imagenes/hombres/testimonio1/testi1.jpeg" alt="Zapatilla Gilarde Basilio" onerror="this.style.display='none'">
               </div>
@@ -111,7 +111,7 @@
             <div class="testimonio-perfil-wrap">
               <img class="testimonio-perfil-img" src="imagenes/hombres/testimonio2/perfil.jpeg" alt="Calep Rojas" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=CR&background=2a2a2a&color=c9a962&size=112'">
             </div>
-            <div class="testimonio-media carrusel-interno testimonio-media-zoom">
+            <div class="testimonio-media carrusel-interno">
               <button class="testimonio-media-prev">‹</button>
               <div class="testimonio-media-slides">
                 <div class="testimonio-media-item activo"><img src="imagenes/hombres/testimonio2/testi2.jpeg" alt="Zapatillas deporte Calep" onerror="this.style.display='none'"></div>
@@ -129,7 +129,7 @@
             <div class="testimonio-perfil-wrap">
               <img class="testimonio-perfil-img" src="imagenes/mujeres/testimonio1/perfil.jpeg" alt="Orfila Rengifo" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=OR&background=2a2a2a&color=c9a962&size=112'">
             </div>
-            <div class="testimonio-media carrusel-interno testimonio-media-zoom">
+            <div class="testimonio-media carrusel-interno">
               <button class="testimonio-media-prev">‹</button>
               <div class="testimonio-media-slides">
                 <div class="testimonio-media-item activo">
@@ -243,6 +243,15 @@
     <p>AttKia Moda — Envíos nacionales por Shalom <span style="opacity:0.5;font-size:0.75rem">v5</span></p>
     <a href="https://wa.me/51933484150" target="_blank" rel="noopener" class="footer-whatsapp">Contactar: 933 484 150</a>
   </footer>
+
+  <!-- Lightbox para fotos/videos de testimonios -->
+  <div class="lightbox-overlay" id="lightboxTestimonios" aria-hidden="true">
+    <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-img oculto" id="lightboxImg">
+      <video class="lightbox-video oculto" id="lightboxVideo" controls muted loop playsinline></video>
+    </div>
+  </div>
 
   <script src="js/ubicaciones.js?v=5"></script>
   <script src="js/app.js?v=5"></script>

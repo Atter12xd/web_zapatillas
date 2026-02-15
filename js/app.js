@@ -603,12 +603,61 @@ if (testimonioCards.length && testimoniosTrack && testimoniosDotsContainer) {
   });
 }
 
-// Zoom al tocar en fotos de testimonios (zapatillas)
-document.querySelectorAll('.testimonio-media-zoom').forEach(wrap => {
-  wrap.addEventListener('click', (e) => {
-    if (e.target.closest('.testimonio-media-prev, .testimonio-media-next') || e.target.closest('video')) return;
-    wrap.classList.toggle('zoom-activo');
+// Lightbox para fotos/videos de testimonios
+const lightboxOverlay = document.getElementById('lightboxTestimonios');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxVideo = document.getElementById('lightboxVideo');
+const lightboxClose = document.querySelector('#lightboxTestimonios .lightbox-close');
+
+function abrirLightboxTestimonio(src, tipo) {
+  if (!lightboxOverlay || !src) return;
+  lightboxImg.classList.add('oculto');
+  lightboxVideo.classList.add('oculto');
+  if (tipo === 'video') {
+    lightboxVideo.src = src;
+    lightboxVideo.classList.remove('oculto');
+    lightboxVideo.play().catch(() => {});
+  } else {
+    lightboxImg.src = src;
+    lightboxImg.alt = '';
+    lightboxImg.classList.remove('oculto');
+  }
+  lightboxOverlay.classList.add('activo');
+  lightboxOverlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarLightboxTestimonio() {
+  if (!lightboxOverlay) return;
+  lightboxOverlay.classList.remove('activo');
+  lightboxOverlay.setAttribute('aria-hidden', 'true');
+  lightboxVideo.pause();
+  lightboxVideo.src = '';
+  lightboxImg.src = '';
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.testimonio-media img').forEach(img => {
+  img.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const src = img.src || img.getAttribute('src');
+    if (src) abrirLightboxTestimonio(src, 'image');
   });
+});
+
+document.querySelectorAll('.testimonio-media video').forEach(video => {
+  video.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const src = video.src || video.getAttribute('src');
+    if (src) abrirLightboxTestimonio(src, 'video');
+  });
+});
+
+lightboxClose?.addEventListener('click', cerrarLightboxTestimonio);
+
+lightboxOverlay?.addEventListener('click', (e) => {
+  if (e.target === lightboxOverlay) cerrarLightboxTestimonio();
 });
 
 // Carrusel interno en testimonios (varias fotos o video+foto)
