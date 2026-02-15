@@ -10,22 +10,23 @@ function log404(url) {
   console.warn('[AttKia] Recurso no encontrado (404):', url);
   console.warn('→ Verifica que el archivo exista en la carpeta correcta');
 }
-const ENVIO_SHALOM = 5;
+const ENVIO_SHALOM = 5;        // Precio promocional (cliente paga esto)
+const ENVIO_SHALOM_NORMAL = 10; // Precio normal, para mostrar el descuento
 
 // Catálogo dinámico: categoría > modelo > datos del producto
 // Para agregar más modelos: solo añadir modelo2, modelo3, etc.
 const CATALOGO = {
   hombre: {
     modelo1: {
-      nombre: 'Zapatilla Cat para hombre',
-      precio: 180,
-      tallas: [38, 39, 40, 41, 42],
+      nombre: 'Jordan Retro 4',
+      precio: 80,
+      tallas: [39, 40, 41, 42, 43],
       imagenes: [
-        'imagenes/hombres/modelo1/zapatilla_Cat1.jpeg',
-        'imagenes/hombres/modelo1/zapatilla_Cat2.jpeg',
-        'imagenes/hombres/modelo1/zapatilla_Cat3.jpeg',
-        'imagenes/hombres/modelo1/zapatilla_Cat4.jpeg',
-        'imagenes/hombres/modelo1/zapatilla_Cat5.jpeg'
+        'imagenes/hombres/modelo8/zapatillayordans6.jpeg',
+        'imagenes/hombres/modelo8/zapatillayordans7.jpeg',
+        'imagenes/hombres/modelo8/zapatillayordans8.jpeg',
+        'imagenes/hombres/modelo8/zapatillayordans9.jpeg',
+        'imagenes/hombres/modelo8/zapatillayordans10.jpeg'
       ]
     },
     modelo2: {
@@ -60,6 +61,61 @@ const CATALOGO = {
         'imagenes/hombres/modelo4/ZapatillaReebok9.jpeg',
         'imagenes/hombres/modelo4/ZapatillaReebok10.jpeg',
         'imagenes/hombres/modelo4/ZapatillaReebok11.jpeg'
+      ]
+    },
+    modelo5: {
+      nombre: 'Zapatillas Brixton',
+      precio: 70,
+      tallas: [39, 40, 41, 42],
+      imagenes: [
+        'imagenes/hombres/modelo5/zapatillaBRIXTON1.jpeg',
+        'imagenes/hombres/modelo5/zapatillaBRIXTON2.jpeg',
+        'imagenes/hombres/modelo5/zapatillaBRIXTON3.jpeg',
+        'imagenes/hombres/modelo5/zapatillaBRIXTON4.jpeg',
+        'imagenes/hombres/modelo5/zapatillaBRIXTON5.jpeg',
+        'imagenes/hombres/modelo5/zapatillaBRIXTON6.jpeg',
+        'imagenes/hombres/modelo5/zapatillaBRIXTON7.jpeg'
+      ]
+    },
+    modelo6: {
+      nombre: 'Zapatilla Yordans',
+      precio: 80,
+      tallas: [35, 36, 37, 38, 39, 40, 41, 42, 43],
+      imagenes: [
+        'imagenes/hombres/modelo6/zapatillayordans1.jpeg',
+        'imagenes/hombres/modelo6/zapatillayordans2.jpeg',
+        'imagenes/hombres/modelo6/zapatillayordans3.jpeg',
+        'imagenes/hombres/modelo6/zapatillayordans4.jpeg',
+        'imagenes/hombres/modelo6/zapatillayordans5.jpeg'
+      ]
+    },
+    modelo7: {
+      nombre: 'Zapatilla Campus',
+      precio: 80,
+      tallas: [39, 40, 41, 42, 43],
+      imagenes: [
+        'imagenes/hombres/modelo7/zapatillacampus1.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus2.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus3.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus4.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus5.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus6.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus7.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus8.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus9.jpeg',
+        'imagenes/hombres/modelo7/zapatillacampus10.jpeg'
+      ]
+    },
+    modelo8: {
+      nombre: 'Zapatilla Cat para hombre',
+      precio: 180,
+      tallas: [38, 39, 40, 41, 42],
+      imagenes: [
+        'imagenes/hombres/modelo1/zapatilla_Cat1.jpeg',
+        'imagenes/hombres/modelo1/zapatilla_Cat2.jpeg',
+        'imagenes/hombres/modelo1/zapatilla_Cat3.jpeg',
+        'imagenes/hombres/modelo1/zapatilla_Cat4.jpeg',
+        'imagenes/hombres/modelo1/zapatilla_Cat5.jpeg'
       ]
     }
   },
@@ -99,6 +155,29 @@ const CATALOGO = {
         'imagenes/mujeres/modelo3/zapatillaAdidasM5.jpeg',
         'imagenes/mujeres/modelo3/zapatillaAdidasM6.jpeg',
         'imagenes/mujeres/modelo3/zapatillaAdidasM7.jpeg'
+      ]
+    },
+    modelo4: {
+      nombre: 'Zapatillas Adida',
+      precio: 75,
+      tallas: [35, 36, 37, 38, 39],
+      imagenes: [
+        'imagenes/mujeres/modelo4/ZapatillaAdida8.jpeg',
+        'imagenes/mujeres/modelo4/ZapatillaAdida9.jpeg',
+        'imagenes/mujeres/modelo4/ZapatillaAdida10.jpeg',
+        'imagenes/mujeres/modelo4/ZapatillaAdida11.jpeg'
+      ]
+    },
+    modelo5: {
+      nombre: 'Zapatilla Yordans',
+      precio: 80,
+      tallas: [35, 36, 37, 38, 39, 40, 41, 42, 43],
+      imagenes: [
+        'imagenes/mujeres/modelo5/zapatillayordans1.jpeg',
+        'imagenes/mujeres/modelo5/zapatillayordans2.jpeg',
+        'imagenes/mujeres/modelo5/zapatillayordans3.jpeg',
+        'imagenes/mujeres/modelo5/zapatillayordans4.jpeg',
+        'imagenes/mujeres/modelo5/zapatillayordans5.jpeg'
       ]
     }
   },
@@ -512,7 +591,7 @@ formCheckout?.addEventListener('submit', (e) => {
 ${items}
 
 *Subtotal:* S/ ${subtotal}
-*Envío Shalom:* S/ ${ENVIO_SHALOM}
+*Envío Shalom (promo):* S/ ${ENVIO_SHALOM} (antes S/ ${ENVIO_SHALOM_NORMAL})
 *TOTAL:* S/ ${total}
 
 ---

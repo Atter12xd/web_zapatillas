@@ -207,6 +207,14 @@ body {
   padding-bottom: 4rem;
 }
 
+@media (max-width: 480px) {
+  .main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 3rem;
+  }
+}
+
 /* Hero - Carrusel de presentación */
 .hero {
   position: relative;
@@ -406,6 +414,7 @@ body {
   padding: 0.5rem 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .productos-track::-webkit-scrollbar {
@@ -419,17 +428,18 @@ body {
 
 .producto-card {
   background: var(--color-surface);
-  border-radius: var(--radius);
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--color-border);
   transition: all var(--transition);
   cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
 .producto-card:hover {
-  border-color: var(--color-gold);
-  box-shadow: var(--shadow);
-  transform: translateY(-4px);
+  border-color: rgba(201, 169, 98, 0.5);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(201, 169, 98, 0.2);
+  transform: translateY(-6px);
 }
 
 .producto-imagen-wrap {
@@ -460,7 +470,7 @@ body {
 .producto-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -520,6 +530,69 @@ body {
   padding: 1rem 1.25rem;
   font-size: 1rem;
   font-weight: 500;
+  line-height: 1.35;
+}
+
+/* Productos: responsive y más atractivo */
+@media (max-width: 768px) {
+  .categoria {
+    padding: 2.5rem 0;
+  }
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .productos-carrusel-wrap {
+    gap: 0.35rem;
+  }
+  .productos-track {
+    gap: 1.25rem;
+    padding: 0.5rem 0.25rem;
+  }
+  .productos-track .producto-card {
+    flex: 0 0 min(260px, 82vw);
+  }
+  .productos-carrusel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.35rem;
+  }
+  .producto-precio-visible {
+    font-size: 1.2rem;
+    padding: 0 1rem 0.5rem;
+  }
+  .producto-codigo {
+    padding: 0 1rem 1rem;
+    font-size: 0.7rem;
+  }
+  .producto-nombre {
+    padding: 0.85rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .categoria {
+    padding: 2rem 0;
+  }
+  .section-title {
+    font-size: 1.35rem;
+    margin-bottom: 1.25rem;
+  }
+  .productos-track {
+    gap: 1rem;
+  }
+  .productos-track .producto-card {
+    flex: 0 0 min(220px, 88vw);
+  }
+  .productos-carrusel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.25rem;
+  }
+  .producto-imagen-wrap {
+    aspect-ratio: 1;
+  }
 }
 
 /* Modal */
@@ -856,6 +929,34 @@ body {
   font-size: 0.9rem;
   color: var(--color-muted);
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.envio-info .envio-antiguo {
+  color: var(--color-muted);
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.envio-info .envio-promo {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+.badge-promo {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.1));
+  color: var(--color-gold);
+  border: 1px solid rgba(212, 175, 55, 0.4);
 }
 
 .btn-add-cart {
@@ -944,6 +1045,26 @@ body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+}
+
+.carrito-total .envio-linea {
+  align-items: center;
+}
+
+.carrito-total .envio-linea del {
+  color: var(--color-muted);
+  margin-right: 0.35rem;
+}
+
+.carrito-total .envio-linea strong {
+  color: var(--color-gold);
+  margin-right: 0.5rem;
+}
+
+.carrito-total .envio-linea .envio-precios {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 .carrito-total .total {
@@ -1107,6 +1228,7 @@ body {
   padding: 0.5rem 0;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 .testimonios-track::-webkit-scrollbar {
@@ -1118,16 +1240,17 @@ body {
   scroll-snap-align: center;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  border-radius: 12px;
   overflow: hidden;
-  transition: border-color var(--transition), box-shadow var(--transition);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
   padding-bottom: 1.5rem;
 }
 
 .testimonio-card:hover {
-  border-color: var(--color-gold);
-  box-shadow: 0 8px 28px rgba(201, 169, 98, 0.12);
+  border-color: rgba(201, 169, 98, 0.5);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(201, 169, 98, 0.15);
+  transform: translateY(-4px);
 }
 
 .testimonio-perfil-wrap {
@@ -1154,7 +1277,7 @@ body {
   height: 300px;
   background: var(--color-bg);
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: 10px;
   margin: 0 1rem;
 }
 
@@ -1212,6 +1335,8 @@ body {
   position: relative;
   min-height: 300px;
   height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .testimonio-media.carrusel-interno .testimonio-media-item {
@@ -1315,6 +1440,121 @@ body {
 .testimonio-dot.activo {
   background: var(--color-gold);
   transform: scale(1.25);
+}
+
+/* Testimonios: responsive y más atractivo */
+@media (max-width: 768px) {
+  .testimonios {
+    padding: 2.5rem 0;
+  }
+  .testimonios-subtitulo {
+    font-size: 0.9rem;
+    margin: -0.75rem 0 1.5rem;
+    padding: 0 0.5rem;
+  }
+  .testimonios-carrusel {
+    gap: 0.5rem;
+  }
+  .testimonio-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .testimonios-track {
+    gap: 1.25rem;
+    padding: 0.5rem 0.25rem;
+  }
+  .testimonio-card {
+    flex: 0 0 min(320px, 88vw);
+    padding-bottom: 1.25rem;
+  }
+  .testimonio-perfil-wrap {
+    width: 60px;
+    min-width: 60px;
+    height: 60px;
+    min-height: 60px;
+    margin: 1rem auto 0.6rem;
+    border-width: 2px;
+  }
+  .testimonio-media {
+    min-height: 250px;
+    height: 250px;
+    margin: 0 0.75rem;
+  }
+  .testimonio-media.carrusel-interno .testimonio-media-slides {
+    min-height: 250px;
+    height: 250px;
+  }
+  .testimonio-estrellas {
+    font-size: 1rem;
+    padding: 0.4rem 1.25rem 0;
+  }
+  .testimonio-texto {
+    padding: 0.75rem 1.25rem 0.4rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .testimonio-cliente {
+    padding: 0 1.25rem 0.85rem;
+    font-size: 0.85rem;
+  }
+  .testimonios-dots {
+    margin-top: 1.25rem;
+    gap: 0.5rem;
+  }
+  .testimonio-dot {
+    width: 10px;
+    height: 10px;
+  }
+  .testimonio-media-prev,
+  .testimonio-media-next {
+    width: 38px;
+    height: 38px;
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .testimonios {
+    padding: 2rem 0;
+  }
+  .testimonios-subtitulo {
+    font-size: 0.85rem;
+    margin: -0.5rem 0 1.25rem;
+  }
+  .testimonio-card {
+    flex: 0 0 min(280px, 92vw);
+  }
+  .testimonio-perfil-wrap {
+    width: 56px;
+    min-width: 56px;
+    height: 56px;
+    min-height: 56px;
+    margin: 0.85rem auto 0.5rem;
+  }
+  .testimonio-media {
+    min-height: 220px;
+    height: 220px;
+    margin: 0 0.6rem;
+  }
+  .testimonio-media.carrusel-interno .testimonio-media-slides {
+    min-height: 220px;
+    height: 220px;
+  }
+  .testimonio-texto {
+    padding: 0.6rem 1rem 0.35rem;
+    font-size: 0.88rem;
+  }
+  .testimonio-cliente {
+    padding: 0 1rem 0.75rem;
+    font-size: 0.82rem;
+  }
+  .testimonio-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+  }
 }
 
 /* Lightbox para fotos/videos de testimonios */

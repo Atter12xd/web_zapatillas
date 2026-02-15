@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=6">
+  <link rel="stylesheet" href="css/styles.css?v=8">
 </head>
 <body>
   <header class="header">
@@ -174,7 +174,7 @@
             <label>Talla:</label>
             <div class="tallas" id="tallasWrap"></div>
           </div>
-          <p class="envio-info">Envío nacional por Shalom + S/ 5</p>
+          <p class="envio-info">Envío nacional por Shalom: <del class="envio-antiguo">S/ 10</del> <strong class="envio-promo">S/ 5</strong> <span class="badge-promo">Promo</span></p>
           <button class="btn-add-cart" id="btnAddCart">Adquirir producto</button>
         </div>
       </div>
@@ -189,7 +189,7 @@
       <div class="carrito-items" id="carritoItems"></div>
       <div class="carrito-total">
         <p>Subtotal: <span id="subtotal">S/ 0</span></p>
-        <p>Envío Shalom: <span>S/ 5</span></p>
+        <p class="envio-linea">Envío Shalom: <span class="envio-precios"><del>S/ 10</del> <strong>S/ 5</strong> <span class="badge-promo">Promo</span></span></p>
         <p class="total">Total: <span id="totalCarrito">S/ 5</span></p>
       </div>
       <form class="form-checkout" id="formCheckout">
@@ -234,7 +234,7 @@
   </div>
 
   <footer class="footer">
-    <p>AttKia Moda — Envíos nacionales por Shalom <span style="opacity:0.5;font-size:0.75rem">v5</span></p>
+    <p>AttKia Moda — Envíos nacionales por Shalom <span style="opacity:0.5;font-size:0.75rem">v6</span></p>
     <a href="https://wa.me/51933484150" target="_blank" rel="noopener" class="footer-whatsapp">Contactar: 933 484 150</a>
   </footer>
 
@@ -248,6 +248,6 @@
   </div>
 
   <script src="js/ubicaciones.js?v=5"></script>
-  <script src="js/app.js?v=7"></script>
+  <script src="js/app.js?v=8"></script>
 </body>
 </html>

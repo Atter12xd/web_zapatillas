@@ -163,7 +163,7 @@ Para agregar departamentos, provincias o distritos, edita este objeto.
   - Datos del cliente
   - Productos con código (ej. H-M1), nombre, talla y precio
   - URL de la foto elegida por el cliente
-  - Subtotal, envío Shalom (S/ 5) y total
+  - Subtotal, envío Shalom (precio normal S/ 10, promocional S/ 5) y total
 
 ---
 
