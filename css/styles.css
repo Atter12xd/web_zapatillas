@@ -1114,26 +1114,32 @@ body {
 }
 
 .testimonio-card {
-  flex: 0 0 min(320px, 85vw);
+  flex: 0 0 min(380px, 90vw);
   scroll-snap-align: center;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  padding-bottom: 1.5rem;
 }
 
 .testimonio-card:hover {
   border-color: var(--color-gold);
+  box-shadow: 0 8px 28px rgba(201, 169, 98, 0.12);
 }
 
 .testimonio-perfil-wrap {
-  width: 56px;
-  height: 56px;
+  width: 70px;
+  min-width: 70px;
+  height: 70px;
+  min-height: 70px;
   border-radius: 50%;
-  margin: 1rem auto 0.5rem;
+  margin: 1.25rem auto 0.75rem;
   overflow: hidden;
   background: var(--color-border);
+  border: 3px solid var(--color-gold);
 }
 
 .testimonio-perfil-img {
@@ -1144,9 +1150,12 @@ body {
 
 .testimonio-media {
   position: relative;
-  height: 180px;
+  min-height: 300px;
+  height: 300px;
   background: var(--color-bg);
   overflow: hidden;
+  border-radius: var(--radius);
+  margin: 0 1rem;
 }
 
 .testimonio-media-item {
@@ -1162,29 +1171,19 @@ body {
 }
 
 .testimonio-media img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.testimonio-media img.img-error {
-  display: none;
-}
-
-.testimonio-media-item:has(.img-error) {
-  background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
-}
-
-.testimonio-media-item:has(.img-error)::after {
-  content: '📷';
-  font-size: 2.5rem;
-  opacity: 0.3;
+.testimonio-media img[style*="display: none"] {
+  display: none !important;
 }
 
 .testimonio-media video {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Zoom en fotos de zapatilla en testimonios */
@@ -1221,7 +1220,8 @@ body {
 
 .testimonio-media.carrusel-interno .testimonio-media-slides {
   position: relative;
-  height: 180px;
+  min-height: 300px;
+  height: 300px;
 }
 
 .testimonio-media.carrusel-interno .testimonio-media-item {
@@ -1242,50 +1242,59 @@ body {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
+  background: rgba(0, 0, 0, 0.65);
+  border: 2px solid rgba(255, 255, 255, 0.4);
   color: white;
-  width: 28px;
-  height: 28px;
-  font-size: 1rem;
+  width: 42px;
+  height: 42px;
+  font-size: 1.5rem;
+  font-weight: 600;
   cursor: pointer;
   z-index: 2;
   border-radius: 50%;
   line-height: 1;
+  transition: background var(--transition), border-color var(--transition);
 }
 
-.testimonio-media-prev { left: 4px; }
-.testimonio-media-next { right: 4px; }
+.testimonio-media-prev:hover,
+.testimonio-media-next:hover {
+  background: rgba(201, 169, 98, 0.8);
+  border-color: var(--color-gold);
+}
+
+.testimonio-media-prev { left: 8px; }
+.testimonio-media-next { right: 8px; }
 
 .testimonio-estrellas {
   color: var(--color-gold);
-  font-size: 1rem;
-  padding: 0.25rem 1.25rem 0;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.5rem 0;
 }
 
 .testimonio-texto {
-  padding: 1.25rem 1.25rem 0.5rem;
-  font-size: 0.95rem;
+  padding: 1rem 1.5rem 0.5rem;
+  font-size: 0.98rem;
   font-style: italic;
   color: var(--color-white);
+  line-height: 1.45;
 }
 
 .testimonio-cliente {
-  padding: 0 1.25rem 1.25rem;
-  font-size: 0.85rem;
+  padding: 0 1.5rem 1rem;
+  font-size: 0.9rem;
   color: var(--color-gold);
 }
 
 .testimonios-dots {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   margin-top: 1.5rem;
 }
 
 .testimonio-dot {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: var(--color-border);
   border: none;
@@ -1293,7 +1302,11 @@ body {
   transition: all var(--transition);
 }
 
+.testimonio-dot:hover {
+  background: rgba(201, 169, 98, 0.5);
+}
+
 .testimonio-dot.activo {
   background: var(--color-gold);
-  transform: scale(1.2);
+  transform: scale(1.25);
 }
