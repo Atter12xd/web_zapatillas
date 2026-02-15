@@ -94,6 +94,27 @@ No hace falta configurarlos manualmente.
 
 ---
 
+## Testimonios
+
+Los testimonios están en `index.html` dentro de la sección `#testimonios`. Cada tarjeta incluye:
+
+- **Perfil:** imagen circular (`.testimonio-perfil`)
+- **Media:** foto(s) o video + foto en carrusel interno
+- **Texto:** mensaje del cliente
+- **Estrellas:** ★★★★★
+- **Cliente:** nombre
+
+**Estructura de carpetas para testimonios:**
+```
+imagenes/hombres/testimonio1/  → testi1.jpeg (Gilarde Basilio)
+imagenes/hombres/testimonio2/  → foto1.jpeg, foto2.jpeg, foto3.jpeg (Calep Rojas)
+imagenes/mujeres/testimonio1/  → video1.mp4, foto1.jpeg (Orfila Rengifo)
+```
+
+Para agregar video: usa `<video src="ruta/video.mp4" controls muted loop playsinline></video>`. Formatos recomendados: MP4, WebM.
+
+---
+
 ## Flujo del cliente
 
 1. **Ver productos:** carrusel por categoría (Hombres, Mujeres, Niños) con flechas.

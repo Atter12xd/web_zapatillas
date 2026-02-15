@@ -597,6 +597,25 @@ if (testimonioCards.length && testimoniosTrack && testimoniosDotsContainer) {
   });
 }
 
+// Carrusel interno en testimonios (varias fotos o video+foto)
+document.querySelectorAll('.testimonio-media.carrusel-interno').forEach(wrap => {
+  const prev = wrap.querySelector('.testimonio-media-prev');
+  const next = wrap.querySelector('.testimonio-media-next');
+  const items = wrap.querySelectorAll('.testimonio-media-item');
+  let idx = 0;
+  function actualizar() {
+    items.forEach((it, i) => it.classList.toggle('activo', i === idx));
+  }
+  prev?.addEventListener('click', () => {
+    idx = (idx - 1 + items.length) % items.length;
+    actualizar();
+  });
+  next?.addEventListener('click', () => {
+    idx = (idx + 1) % items.length;
+    actualizar();
+  });
+});
+
 // Navegación móvil (hamburguesa)
 const navToggle = document.getElementById('navToggle');
 const nav = document.getElementById('nav');
