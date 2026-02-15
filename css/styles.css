@@ -1131,6 +1131,7 @@ body {
   width: 56px;
   height: 56px;
   border-radius: 50%;
+  background-color: var(--color-border);
   background-size: cover;
   background-position: center;
   margin: 1rem auto 0.5rem;
@@ -1159,6 +1160,20 @@ body {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+}
+
+.testimonio-media img.img-error {
+  display: none;
+}
+
+.testimonio-media-item:has(.img-error) {
+  background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+}
+
+.testimonio-media-item:has(.img-error)::after {
+  content: '📷';
+  font-size: 2.5rem;
+  opacity: 0.3;
 }
 
 .testimonio-media video {
