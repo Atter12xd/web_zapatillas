@@ -623,7 +623,7 @@ function abrirLightboxTestimonio(src, tipo) {
     lightboxImg.classList.remove('oculto');
   }
   lightboxOverlay.classList.add('activo');
-  lightboxOverlay.setAttribute('aria-hidden', 'false');
+  lightboxOverlay.removeAttribute('inert');
   document.body.style.overflow = 'hidden';
 }
 
@@ -632,10 +632,8 @@ function cerrarLightboxTestimonio() {
   lightboxVideo.pause();
   lightboxVideo.src = '';
   lightboxImg.src = '';
-  lightboxVideo.blur();
-  document.activeElement?.blur();
+  lightboxOverlay.setAttribute('inert', '');
   lightboxOverlay.classList.remove('activo');
-  lightboxOverlay.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="./">
   <title>AttKia Moda | Zapatillas de Moda</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=5">
+  <link rel="stylesheet" href="css/styles.css?v=6">
 </head>
 <body>
   <header class="header">
@@ -95,7 +96,7 @@
           <!-- Testimonio 1: Gilarde Basilio - perfil=persona, media=zapatilla -->
           <div class="testimonio-card">
             <div class="testimonio-perfil-wrap">
-              <img class="testimonio-perfil-img" src="imagenes/hombres/testimonio1/perfil.jpeg" alt="Gilarde Basilio" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=GB&background=2a2a2a&color=c9a962&size=112'">
+              <img class="testimonio-perfil-img" src="https://ui-avatars.com/api/?name=GB&background=2a2a2a&color=c9a962&size=112" alt="Gilarde Basilio">
             </div>
             <div class="testimonio-media">
               <div class="testimonio-media-item activo">
@@ -109,7 +110,7 @@
           <!-- Testimonio 2: Calep Rojas - perfil=persona, 3 fotos zapatillas con zoom -->
           <div class="testimonio-card">
             <div class="testimonio-perfil-wrap">
-              <img class="testimonio-perfil-img" src="imagenes/hombres/testimonio2/perfil.jpeg" alt="Calep Rojas" onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=CR&background=2a2a2a&color=c9a962&size=112'">
+              <img class="testimonio-perfil-img" src="https://ui-avatars.com/api/?name=CR&background=2a2a2a&color=c9a962&size=112" alt="Calep Rojas">
             </div>
             <div class="testimonio-media carrusel-interno">
               <button class="testimonio-media-prev">‹</button>
@@ -245,7 +246,7 @@
   </footer>
 
   <!-- Lightbox para fotos/videos de testimonios -->
-  <div class="lightbox-overlay" id="lightboxTestimonios" aria-hidden="true">
+  <div class="lightbox-overlay" id="lightboxTestimonios" inert>
     <button class="lightbox-close" aria-label="Cerrar">&times;</button>
     <div class="lightbox-content">
       <img src="" alt="" class="lightbox-img oculto" id="lightboxImg">
@@ -254,6 +255,6 @@
   </div>
 
   <script src="js/ubicaciones.js?v=5"></script>
-  <script src="js/app.js?v=5"></script>
+  <script src="js/app.js?v=6"></script>
 </body>
 </html>
