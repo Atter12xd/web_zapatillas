@@ -712,14 +712,6 @@ nav?.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', cerrarNav);
 });
 
-// Debug: verificar carga de imágenes de testimonios
-document.querySelectorAll('.testimonio-media img').forEach((img, i) => {
-  const src = img.src || img.getAttribute('src');
-  console.log(`[Testimonio ${i + 1}] Intentando cargar:`, src);
-  img.addEventListener('load', () => console.log(`[Testimonio ${i + 1}] ✓ OK:`, src));
-  img.addEventListener('error', (e) => console.error(`[Testimonio ${i + 1}] ✗ FALLO 404/error:`, src, e));
-});
-
 // Inicialización
 renderizarProductos();
 cargarDepartamentos();
