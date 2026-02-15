@@ -48,6 +48,19 @@ const CATALOGO = {
         'imagenes/hombres/modelo3/ZapatillaReebok4.jpeg',
         'imagenes/hombres/modelo3/ZapatillaReebok5.jpeg'
       ]
+    },
+    modelo4: {
+      nombre: 'Zapatilla Reebok',
+      precio: 75,
+      tallas: [39, 40, 41, 42, 43],
+      imagenes: [
+        'imagenes/hombres/modelo4/ZapatillaReebok6.jpeg',
+        'imagenes/hombres/modelo4/ZapatillaReebok7.jpeg',
+        'imagenes/hombres/modelo4/ZapatillaReebok8.jpeg',
+        'imagenes/hombres/modelo4/ZapatillaReebok9.jpeg',
+        'imagenes/hombres/modelo4/ZapatillaReebok10.jpeg',
+        'imagenes/hombres/modelo4/ZapatillaReebok11.jpeg'
+      ]
     }
   },
   mujer: {
