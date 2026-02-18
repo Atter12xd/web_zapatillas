@@ -133,26 +133,14 @@ Para agregar video: usa `<video src="ruta/video.mp4" controls muted loop playsin
 3. **Elegir foto de referencia:** miniatura seleccionada para el pedido (se envía a WhatsApp).
 4. **Elegir talla:** botones de talla.
 5. **Agregar al carrito:** botón "Adquirir producto".
-6. **Checkout:** datos de envío (nombre, celular, dirección, departamento/provincia/distrito).
-7. **Enviar a WhatsApp:** el mensaje incluye productos, tallas, foto elegida y totales.
+6. **Checkout:** datos de envío (nombre, celular, departamento). Solo departamento — el cliente elige ej. "Junín" y listo.
+7. **Enviar a WhatsApp:** el mensaje incluye productos, tallas, foto elegida, departamento y totales. Envío solo por Shalom.
 
 ---
 
 ## Ubicaciones (Perú)
 
-En `js/ubicaciones.js` está la estructura:
-
-```javascript
-UBICACIONES_PERU = {
-  "Departamento": {
-    "Provincia": ["Distrito1", "Distrito2", ...],
-    ...
-  },
-  ...
-}
-```
-
-Para agregar departamentos, provincias o distritos, edita este objeto.
+En `js/ubicaciones.js` está la estructura Departamento > Provincia > Distrito. El checkout solo usa **departamento** (el cliente elige ej. Junín, Lima, Huánuco). Se extraen los departamentos de forma automática para el selector.
 
 ---
 
@@ -160,7 +148,7 @@ Para agregar departamentos, provincias o distritos, edita este objeto.
 
 - **Número:** 933 484 150 (definido en `WHATSAPP_NUMERO` en `app.js`)
 - **Contenido del mensaje:**
-  - Datos del cliente
+  - Datos del cliente (nombre, celular, departamento de envío)
   - Productos con código (ej. H-M1), nombre, talla y precio
   - URL de la foto elegida por el cliente
   - Subtotal, envío Shalom (precio normal S/ 10, promocional S/ 5) y total

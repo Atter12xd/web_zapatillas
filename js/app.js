@@ -231,45 +231,13 @@ const subtotalEl = document.getElementById('subtotal');
 const totalCarritoEl = document.getElementById('totalCarrito');
 const formCheckout = document.getElementById('formCheckout');
 const departamentoSelect = document.getElementById('departamento');
-const provinciaSelect = document.getElementById('provincia');
-const distritoSelect = document.getElementById('distrito');
 
-// Cargar departamentos
+// Cargar departamentos (envío solo por Shalom)
 function cargarDepartamentos() {
-  const depts = Object.keys(UBICACIONES_PERU);
-  departamentoSelect.innerHTML = '<option value="">Selecciona departamento</option>' +
+  const depts = Object.keys(UBICACIONES_PERU).sort((a, b) => a.localeCompare(b));
+  departamentoSelect.innerHTML = '<option value="">Selecciona tu departamento</option>' +
     depts.map(d => `<option value="${d}">${d}</option>`).join('');
 }
-
-// Cargar provincias al cambiar departamento
-function cargarProvincias() {
-  const dep = departamentoSelect.value;
-  provinciaSelect.disabled = !dep;
-  provinciaSelect.innerHTML = '<option value="">Selecciona provincia</option>';
-  distritoSelect.disabled = true;
-  distritoSelect.innerHTML = '<option value="">Primero selecciona provincia</option>';
-
-  if (dep && UBICACIONES_PERU[dep]) {
-    const provs = Object.keys(UBICACIONES_PERU[dep]);
-    provinciaSelect.innerHTML += provs.map(p => `<option value="${p}">${p}</option>`).join('');
-  }
-}
-
-// Cargar distritos al cambiar provincia
-function cargarDistritos() {
-  const dep = departamentoSelect.value;
-  const prov = provinciaSelect.value;
-  distritoSelect.disabled = !prov;
-  distritoSelect.innerHTML = '<option value="">Selecciona distrito</option>';
-
-  if (dep && prov && UBICACIONES_PERU[dep] && UBICACIONES_PERU[dep][prov]) {
-    const dists = UBICACIONES_PERU[dep][prov];
-    distritoSelect.innerHTML += dists.map(d => `<option value="${d}">${d}</option>`).join('');
-  }
-}
-
-departamentoSelect.addEventListener('change', cargarProvincias);
-provinciaSelect.addEventListener('change', cargarDistritos);
 
 // Obtener producto del catálogo
 function getProducto(categoria, modelo) {
@@ -564,10 +532,7 @@ formCheckout?.addEventListener('submit', (e) => {
   }
   const nombre = document.getElementById('nombre').value.trim();
   const celular = document.getElementById('celular').value.trim();
-  const dep = departamentoSelect.value;
-  const prov = provinciaSelect.value;
-  const dist = distritoSelect.value;
-  const direccion = document.getElementById('direccion').value.trim();
+  const departamento = departamentoSelect.value;
 
   const esUrlAbsoluta = typeof window !== 'undefined' && window.location.protocol?.startsWith('http');
   const pathBase = window.location?.pathname?.replace(/\/[^/]*$/, '') || '';
@@ -584,8 +549,7 @@ formCheckout?.addEventListener('submit', (e) => {
 
 *Cliente:* ${nombre}
 *Celular:* ${celular}
-*Lugar de envío:* ${dist}, ${prov}, ${dep}
-*Dirección:* ${direccion}
+*Departamento (envío Shalom):* ${departamento}
 
 *Productos (código + imagen):*
 ${items}
@@ -604,8 +568,7 @@ ${items}
   carrito = [];
   actualizarCarrito();
   formCheckout.reset();
-  provinciaSelect.disabled = true;
-  distritoSelect.disabled = true;
+  cargarDepartamentos();
   cerrarModal(modalCarrito);
 });
 
