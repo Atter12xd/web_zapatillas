@@ -290,16 +290,20 @@ function renderizarProductos() {
     const btnNext = wrap.querySelector('.productos-carrusel-btn.next');
     if (btnPrev) {
       btnPrev.addEventListener('click', () => {
-        const cardWidth = track.querySelector('.producto-card')?.offsetWidth || 300;
-        const gap = 32;
-        track.scrollBy({ left: -(cardWidth + gap), behavior: 'smooth' });
+        const card = track.querySelector('.producto-card');
+        if (!card) return;
+        const gap = parseFloat(getComputedStyle(track).gap) || 16;
+        const scrollAmount = card.offsetWidth + gap;
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       });
     }
     if (btnNext) {
       btnNext.addEventListener('click', () => {
-        const cardWidth = track.querySelector('.producto-card')?.offsetWidth || 300;
-        const gap = 32;
-        track.scrollBy({ left: cardWidth + gap, behavior: 'smooth' });
+        const card = track.querySelector('.producto-card');
+        if (!card) return;
+        const gap = parseFloat(getComputedStyle(track).gap) || 16;
+        const scrollAmount = card.offsetWidth + gap;
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       });
     }
   }
