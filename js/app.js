@@ -13,7 +13,7 @@ function log404(url) {
 const ENVIO_SHALOM = 5;        // Precio promocional (cliente paga esto)
 const ENVIO_SHALOM_NORMAL = 10; // Precio normal, para mostrar el descuento
 
-// Catálogo dinámico: categoría > modelo > datos del producto
+// Catálogo dinámico: categoría aa> modelo > datos del producto
 // Para agregar más modelos: solo añadir modelo2, modelo3, etc.
 const CATALOGO = {
   hombre: {
