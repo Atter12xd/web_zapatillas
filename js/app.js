@@ -315,7 +315,6 @@ function abrirModalProducto(categoria, modelo) {
   if (!prod) return;
 
   const codigo = getCodigoProducto(categoria, modelo);
-  const modelosDisponibles = Object.keys(CATALOGO[categoria] || {});
 
   modalTitulo.textContent = prod.nombre;
   modalPrecio.textContent = `S/ ${prod.precio}`;
@@ -324,27 +323,11 @@ function abrirModalProducto(categoria, modelo) {
 
   document.getElementById('carruselContainer')?.classList.remove('zoom-activo');
 
-  // Selector de modelo (si hay más de uno)
+  // No mostrar selector "Modelo" con otros productos: solo se eligen las fotos del producto actual (thumbnails abajo).
   const modeloSelectorWrap = document.getElementById('modeloSelectorWrap');
   if (modeloSelectorWrap) {
-    modeloSelectorWrap.style.display = modelosDisponibles.length > 1 ? 'block' : 'none';
-    modeloSelectorWrap.innerHTML = modelosDisponibles.length > 1 ? `
-      <label>Modelo:</label>
-      <div class="modelo-btns">
-        ${modelosDisponibles.map(m => {
-          const p = CATALOGO[categoria][m];
-          const cod = getCodigoProducto(categoria, m);
-          return `<button type="button" class="modelo-btn ${m === modelo ? 'seleccionado' : ''}" data-modelo="${m}" data-categoria="${categoria}">${cod} - ${p.nombre}</button>`;
-        }).join('')}
-      </div>
-    ` : '';
-    modeloSelectorWrap.querySelectorAll('.modelo-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const mod = btn.dataset.modelo;
-        const cat = btn.dataset.categoria;
-        abrirModalProducto(cat, mod);
-      });
-    });
+    modeloSelectorWrap.style.display = 'none';
+    modeloSelectorWrap.innerHTML = '';
   }
 
   const modalCodigoEl = document.getElementById('modalCodigo');
