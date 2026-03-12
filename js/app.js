@@ -258,7 +258,7 @@ function renderizarProductos() {
       return `
         <article class="producto-card" data-categoria="${categoria}" data-modelo="${modelo}">
           <div class="producto-imagen-wrap">
-            <img src="${prod.imagenes[0]}" alt="${prod.nombre}" class="producto-imagen">
+            <img src="${prod.imagenes[0]}" alt="${prod.nombre}" class="producto-imagen" loading="lazy">
             <div class="producto-overlay">
               <button class="btn-ver">Ver más</button>
             </div>
@@ -437,7 +437,16 @@ modalCarrito?.addEventListener('click', (e) => {
 // Agregar al carrito (usa la foto elegida por el cliente)
 btnAddCart?.addEventListener('click', () => {
   if (!tallaSeleccionada) {
-    alert('Por favor selecciona una talla.');
+    tallasWrap.style.outline = '2px solid #c44';
+    tallasWrap.style.outlineOffset = '4px';
+    tallasWrap.style.borderRadius = '6px';
+    setTimeout(() => { tallasWrap.style.outline = ''; tallasWrap.style.outlineOffset = ''; }, 2000);
+    btnAddCart.textContent = '⚠ Selecciona una talla';
+    btnAddCart.style.background = '#c44';
+    setTimeout(() => {
+      btnAddCart.textContent = 'Adquirir producto';
+      btnAddCart.style.background = '';
+    }, 2000);
     return;
   }
   const prod = getProducto(productoActual.categoria, productoActual.modelo);
@@ -455,6 +464,9 @@ btnAddCart?.addEventListener('click', () => {
   });
   actualizarCarrito();
   cerrarModal(modalProducto);
+  // Feedback visual en el botón del carrito
+  cartBtn.classList.add('cart-bump');
+  setTimeout(() => cartBtn.classList.remove('cart-bump'), 600);
   // Abrir carrito
   modalCarrito.classList.add('activo');
   document.body.style.overflow = 'hidden';
@@ -492,7 +504,9 @@ function actualizarCarrito() {
 
 cartBtn?.addEventListener('click', () => {
   if (carrito.length === 0) {
-    alert('Tu carrito está vacío. Agrega productos primero.');
+    cartCount.textContent = '0';
+    cartBtn.classList.add('cart-bump');
+    setTimeout(() => cartBtn.classList.remove('cart-bump'), 600);
     return;
   }
   modalCarrito.classList.add('activo');
@@ -521,21 +535,20 @@ formCheckout?.addEventListener('submit', (e) => {
   const subtotal = carrito.reduce((s, i) => s + i.precio, 0);
   const total = subtotal + ENVIO_SHALOM;
 
-  const mensaje = `*ATTKIA MODA* - Nuevo pedido
+  const mensaje = `🛍️ *ATTKIA MODA* — Nuevo Pedido
 
-*Cliente:* ${nombre}
-*Celular:* ${celular}
-*Departamento (envío Shalom):* ${departamento}
+👤 *Cliente:* ${nombre}
+📱 *Celular:* ${celular}
+📍 *Departamento:* ${departamento}
 
-*Productos (código + imagen):*
+📦 *Productos:*
 ${items}
 
-*Subtotal:* S/ ${subtotal}
-*Envío Shalom (promo):* S/ ${ENVIO_SHALOM} (antes S/ ${ENVIO_SHALOM_NORMAL})
-*TOTAL:* S/ ${total}
+💰 *Subtotal:* S/ ${subtotal}
+🚚 *Envío Shalom:* S/ ${ENVIO_SHALOM} _(antes S/ ${ENVIO_SHALOM_NORMAL})_
+✅ *TOTAL A PAGAR:* S/ ${total}
 
----
-Último paso: comunicarse con nuestro asesor de ventas para confirmar.`;
+_Esperando confirmación del asesor de ventas._`;
 
   const url = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, '_blank');
@@ -569,16 +582,31 @@ function initHeroCarrusel() {
   const btnPrev = document.querySelector('.hero-carrusel .hero-carrusel-btn.prev');
   const btnNext = document.querySelector('.hero-carrusel .hero-carrusel-btn.next');
 
+  function resetHeroTimer() {
+    clearInterval(heroInterval);
+    heroInterval = setInterval(() => {
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      actualizarHero();
+    }, 6000);
+  }
+
+  let heroInterval = setInterval(() => {
+    heroIndex = (heroIndex + 1) % heroSlides.length;
+    actualizarHero();
+  }, 6000);
+
   if (btnPrev) {
     btnPrev.addEventListener('click', () => {
       heroIndex = (heroIndex - 1 + heroSlides.length) % heroSlides.length;
       actualizarHero();
+      resetHeroTimer();
     });
   }
   if (btnNext) {
     btnNext.addEventListener('click', () => {
       heroIndex = (heroIndex + 1) % heroSlides.length;
       actualizarHero();
+      resetHeroTimer();
     });
   }
 
@@ -586,13 +614,9 @@ function initHeroCarrusel() {
     dot.addEventListener('click', () => {
       heroIndex = parseInt(dot.dataset.index, 10);
       actualizarHero();
+      resetHeroTimer();
     });
   });
-
-  setInterval(() => {
-    heroIndex = (heroIndex + 1) % heroSlides.length;
-    actualizarHero();
-  }, 4500);
 }
 
 if (document.readyState === 'loading') {
@@ -741,6 +765,20 @@ navBackdrop?.addEventListener('click', cerrarNav);
 
 nav?.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', cerrarNav);
+});
+
+// Cerrar modales y lightbox con Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (lightboxOverlay?.classList.contains('activo')) {
+      cerrarLightboxTestimonio();
+    } else if (modalProducto?.classList.contains('activo')) {
+      cerrarModal(modalProducto);
+    } else if (modalCarrito?.classList.contains('activo')) {
+      cerrarModal(modalCarrito);
+    }
+    cerrarNav();
+  }
 });
 
 // Inicialización

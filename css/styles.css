@@ -1,9 +1,9 @@
 /* ===== AttKia Moda - Estilos de lujo ===== */
 :root {
-  --color-bg: #0d0d0d;
-  --color-bg-soft: #161616;
-  --color-surface: #1a1a1a;
-  --color-border: #2a2a2a;
+  --color-bg: #080808;
+  --color-bg-soft: #111111;
+  --color-surface: #141414;
+  --color-border: rgba(255,255,255,0.08);
   --color-gold: #c9a962;
   --color-gold-light: #e5d4a1;
   --color-white: #f5f5f5;
@@ -13,6 +13,9 @@
   --transition: 0.3s ease;
   --radius: 8px;
   --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --color-gold-dim: rgba(201,169,98,0.15);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow-hover: 0 20px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,169,98,0.25);
 }
 
 * {
@@ -40,9 +43,10 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(13, 13, 13, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
+  background: rgba(8, 8, 8, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,169,98,0.12);
 }
 
 .header-content {
@@ -61,6 +65,10 @@ body {
   color: var(--color-gold);
   text-decoration: none;
   letter-spacing: 0.05em;
+}
+
+.logo:hover {
+  text-shadow: 0 0 20px rgba(201,169,98,0.4);
 }
 
 .nav {
@@ -97,6 +105,17 @@ body {
 .cart-btn:hover {
   border-color: var(--color-gold);
   color: var(--color-gold);
+}
+
+/* Animación bump al agregar al carrito */
+@keyframes cartBump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.cart-bump {
+  animation: cartBump 0.5s ease;
 }
 
 .cart-count {
@@ -255,7 +274,12 @@ body {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(8,8,8,0.2) 0%,
+    rgba(8,8,8,0.4) 40%,
+    rgba(8,8,8,0.85) 100%
+  );
   z-index: 2;
 }
 
@@ -351,6 +375,84 @@ body {
   transform: scale(1.2);
 }
 
+/* Trust Bar - Barra de confianza */
+.trust-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  margin: 0 -1.5rem;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--color-bg-soft);
+  color: var(--color-white);
+}
+
+.trust-item svg {
+  flex-shrink: 0;
+  color: var(--color-gold);
+}
+
+.trust-item strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.trust-item span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 900px) {
+  .trust-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-bar {
+    grid-template-columns: 1fr;
+  }
+  .trust-item {
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* Hero CTA button */
+.hero-cta {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.85rem 2.5rem;
+  background: transparent;
+  border: 1.5px solid var(--color-gold);
+  color: var(--color-gold);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.hero-cta:hover {
+  background: var(--color-gold);
+  color: var(--color-bg);
+  box-shadow: 0 8px 24px rgba(201,169,98,0.3);
+  transform: translateY(-2px);
+}
+
 /* Categorías */
 .categoria {
   padding: 4rem 0;
@@ -358,11 +460,24 @@ body {
 
 .section-title {
   font-family: var(--font-display);
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 400;
-  letter-spacing: 0.1em;
-  margin-bottom: 2rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 2.5rem;
   color: var(--color-gold-light);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+  border-radius: 2px;
 }
 
 .coming-soon {
@@ -428,18 +543,18 @@ body {
 
 .producto-card {
   background: var(--color-surface);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--color-border);
-  transition: all var(--transition);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-card);
 }
 
 .producto-card:hover {
-  border-color: rgba(201, 169, 98, 0.5);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(201, 169, 98, 0.2);
-  transform: translateY(-6px);
+  border-color: rgba(201,169,98,0.4);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-8px) scale(1.02);
 }
 
 .producto-imagen-wrap {
@@ -488,7 +603,8 @@ body {
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--color-gold);
-  padding: 0 1.25rem 0.5rem;
+  padding: 0.4rem 1.25rem 0.5rem;
+  text-shadow: 0 1px 8px rgba(201,169,98,0.2);
 }
 
 .producto-codigo {
@@ -618,8 +734,8 @@ body {
 
 .modal {
   background: var(--color-surface);
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  border: 1px solid rgba(201,169,98,0.1);
   max-width: 900px;
   width: 100%;
   max-height: 90vh;
@@ -627,6 +743,7 @@ body {
   position: relative;
   transform: scale(0.95);
   transition: transform var(--transition);
+  box-shadow: 0 32px 64px rgba(0,0,0,0.6);
 }
 
 .modal-overlay.activo .modal {
@@ -948,33 +1065,43 @@ body {
 
 .badge-promo {
   display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.65rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(212, 175, 55, 0.1));
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(201,169,98,0.3), rgba(201,169,98,0.1));
   color: var(--color-gold);
-  border: 1px solid rgba(212, 175, 55, 0.4);
+  border: 1px solid rgba(201,169,98,0.5);
+  animation: pulsePromo 2s ease-in-out infinite;
+}
+
+@keyframes pulsePromo {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 .btn-add-cart {
-  background: var(--color-gold);
+  background: linear-gradient(135deg, var(--color-gold), #d4af37);
   color: var(--color-bg);
   border: none;
-  padding: 1rem 2rem;
+  padding: 1rem 2.5rem;
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 16px rgba(201,169,98,0.3);
 }
 
 .btn-add-cart:hover {
-  background: var(--color-gold-light);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(201,169,98,0.4);
 }
 
 /* Modal carrito */
@@ -1129,25 +1256,28 @@ body {
 
 .btn-whatsapp {
   width: 100%;
-  background: #25D366;
+  background: linear-gradient(135deg, #25D366, #128C7E);
   color: #fff;
   border: none;
   padding: 1rem;
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   transition: all var(--transition);
+  box-shadow: 0 4px 16px rgba(37,211,102,0.25);
+  letter-spacing: 0.03em;
 }
 
 .btn-whatsapp:hover {
-  background: #20bd5a;
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #2be571, #25D366);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(37,211,102,0.35);
 }
 
 .asesor-msg {
@@ -1160,8 +1290,9 @@ body {
 /* Footer */
 .footer {
   text-align: center;
-  padding: 2rem;
-  border-top: 1px solid var(--color-border);
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(201,169,98,0.12);
+  background: var(--color-bg-soft);
 }
 
 .footer p {
@@ -1170,14 +1301,41 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-gold);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.footer-desc {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
 .footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--color-gold);
   text-decoration: none;
   font-weight: 500;
 }
 
+.footer-whatsapp svg {
+  color: #25D366;
+}
+
 .footer-whatsapp:hover {
   text-decoration: underline;
+}
+
+.footer-copy {
+  color: rgba(136,136,136,0.5);
+  font-size: 0.75rem;
+  margin-top: 1.25rem;
 }
 
 /* Testimonios */
@@ -1240,11 +1398,13 @@ body {
   scroll-snap-align: center;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-gold);
   border-radius: 12px;
   overflow: hidden;
-  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  box-shadow: var(--shadow-card);
   padding-bottom: 1.5rem;
+  position: relative;
 }
 
 .testimonio-card:hover {
