@@ -323,13 +323,6 @@ function abrirModalProducto(categoria, modelo) {
 
   document.getElementById('carruselContainer')?.classList.remove('zoom-activo');
 
-  // No mostrar selector "Modelo" con otros productos: solo se eligen las fotos del producto actual (thumbnails abajo).
-  const modeloSelectorWrap = document.getElementById('modeloSelectorWrap');
-  if (modeloSelectorWrap) {
-    modeloSelectorWrap.style.display = 'none';
-    modeloSelectorWrap.innerHTML = '';
-  }
-
   const modalCodigoEl = document.getElementById('modalCodigo');
   if (modalCodigoEl) modalCodigoEl.textContent = `Cód. ${codigo}`;
 
